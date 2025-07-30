@@ -1,0 +1,129 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background-color: #404040;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.card-title {
+    color: #fe5f2f;
+    font-weight: bold;
+}
+
+.btn-pokemon {
+    background-color: #ffcc33;
+    border: none;
+    color: #404040;
+    font-weight: bold;
+}
+
+.btn-pokemon:hover {
+    background-color: #fe5f2f;
+    color: white;
+}
+
+.btn-details {
+    background-color: #fe5f2f;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-details:hover {
+    background-color: #ffcc33;
+    color: #404040;
+}
+
+footer {
+    background-color: #404040;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+}
+
+.product-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.product-card {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 2px solid #fe5f2f;
+}
+
+.product-image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    align-items: flex-end;
+}
+
+/* Estilos do carrossel */
+.custom-carousel {
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 3px solid #fe5f2f;
+    box-shadow: 0 4px 12px rgba(254, 95, 47, 0.3);
+}
+
+.carousel-inner {
+    border-radius: 12px;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        flex-direction: column;
+    }
+
+    .product-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .carousel-item img {
+        height: 250px;
+    }
+
+    .custom-carousel {
+        max-width: 95%;
+    }
+}

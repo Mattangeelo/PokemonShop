@@ -1,0 +1,152 @@
+:root {
+    --primary-color: #ffcc33;  /* Amarelo Pokémon */
+    --secondary-color: #fe5f2f;  /* Laranja */
+    --dark-color: #404040;  /* Cinza escuro */
+    --light-color: #f8f9fa;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: var(--dark-color);
+}
+
+/* Sidebar */
+#sidebar {
+    background-color: var(--dark-color);
+    color: white;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.sidebar-header {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h3 {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 12px 20px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+    color: white;
+    background-color: var(--secondary-color);
+}
+
+.nav-link i {
+    color: var(--primary-color);
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-footer {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Main Content */
+main {
+    padding-top: 20px;
+    background-color: white;
+}
+
+/* Cards */
+.summary-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.bg-primary {
+    background-color: var(--secondary-color) !important;
+}
+
+.bg-warning {
+    background-color: var(--primary-color) !important;
+}
+
+.bg-success {
+    background-color: #4CAF50 !important;
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+/* Botões */
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-primary:hover {
+    background-color: #e04a1a;
+    border-color: #e04a1a;
+}
+
+.btn-outline-secondary {
+    color: var(--dark-color);
+    border-color: #ced4da;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+}
+
+/* Tabelas */
+.table {
+    color: var(--dark-color);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 204, 51, 0.1);
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 5px 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #sidebar {
+        min-height: auto;
+        position: static;
+        width: 100%;
+    }
+
+    main {
+        padding-top: 20px;
+    }
+}

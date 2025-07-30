@@ -1,0 +1,142 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #faf6cb;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #404040;
+    padding: 15px 0;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.nav-link {
+    font-weight: 600;
+    color: #fff !important;
+    margin-left: 15px;
+}
+
+.nav-link.active {
+    color: #ffcc33 !important;
+}
+
+/* Card de Registro */
+.register-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.register-card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 100%;
+    margin: 20px;
+}
+
+.logo {
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: #fe5f2f;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    color: #fe5f2f;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.divider {
+    border-color: #ffcc33;
+    opacity: 0.5;
+    margin: 10px 0;
+}
+
+/* Formulário */
+.form-control, .form-select {
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #fe5f2f;
+    box-shadow: 0 0 0 0.25rem rgba(254, 95, 47, 0.25);
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.85rem;
+}
+
+/* Botões */
+.btn {
+    background-color: #fe5f2f;
+    border: none;
+    color: #ffff;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #fe5f2f;
+    color: white;
+}
+
+/* Footer */
+.register-footer {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.login-link {
+    color: #fe5f2f;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+    color: #ffcc33;
+}
+
+footer {
+    background-color: #404040;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .register-card {
+        padding: 30px 20px;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+}

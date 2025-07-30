@@ -1,0 +1,106 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #faf6cb;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #404040;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.card-title {
+    color: #fe5f2f;
+    font-weight: bold;
+}
+
+.btn-pokemon {
+    background-color: #ffcc33;
+    border: none;
+    color: #404040;
+    font-weight: bold;
+}
+
+.btn-pokemon:hover {
+    background-color: #fe5f2f;
+    color: white;
+}
+
+.btn-details {
+    background-color: #fe5f2f;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-details:hover {
+    background-color: #ffcc33;
+    color: #404040;
+}
+
+footer {
+    background-color: #404040;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+}
+
+.login-container {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.login-card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.btn-login {
+    background-color: #fe5f2f;
+    border-color: #fe5f2f;
+    color: #fff;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #fe5f2f;
+    border-color: #fe5f2f;
+}
+
+.login-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.login-footer a {
+    color: #fcb900;
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    height: 50px;
+}
