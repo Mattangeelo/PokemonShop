@@ -1,5 +1,5 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #faf6cb;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -9,6 +9,38 @@ body {
 
 .navbar-brand img {
     height: 40px;
+}
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    border: 3px solid #ffcc33;
+}
+
+.bg-pokemon {
+    background-color: #fe5f2f;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item {
+    padding: 0.5rem 1.5rem;
+}
+
+.dropdown-item:hover {
+    background-color: #fff8e6;
+}
+
+.navbar-nav .dropdown-menu {
+    margin-top: 0.5rem;
 }
 
 .card-title {

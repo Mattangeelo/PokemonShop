@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\categoriaController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\produtoController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Middleware\CheckIsAdmin;
@@ -28,10 +30,24 @@ Route::middleware([CheckIsLogged::class])->group(function () {
         * Rotas Admin
         */
         Route::get('admin',[adminController::class,'index'])->name('admin');
+
+        /**
+         * Rotas Produtos
+         */
+        Route::get('showProdutos',[produtoController::class,'index'])->name('showProdutos');
+
+        /**
+         * Rotas Categorias
+         */
+        Route::get('filtroCategorias',[categoriaController::class,'filtro'])->name('filtroCategorias');
+        Route::get('showCategorias',[categoriaController::class,'index'])->name('showCategorias');
+        Route::post('cadastrarCategoria',[categoriaController::class,'cadastrar'])->name('cadastrarCategoria');
+        Route::post('editarCategoria/{id}',[categoriaController::class,'editar'])->name('editarCategoria');
+        Route::post('excluirCategoria/{id}',[categoriaController::class,'excluir'])->name('excluirCategoria');
     });
 
      Route::middleware([CheckIsUser::class])->group(function () {
-        
+
     });
 
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');

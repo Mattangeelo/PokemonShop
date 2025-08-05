@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ route('/') }}">
                 <img src="{{ asset('imagens/logo.png') }}" alt="Logo Pokémon">
             </a>
             <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
@@ -58,7 +58,7 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="nome" class="form-label">Nome Completo *</label>
                                         <input type="text" class="form-control @error('nome') is-invalid @enderror"
-                                            id="nome" name="nome" value="{{ old('nome') }}" required>
+                                            id="nome" name="nome" value="{{ old('nome') }}">
                                         @error('nome')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -69,7 +69,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="cpf" class="form-label">CPF *</label>
                                         <input type="text" class="form-control @error('cpf') is-invalid @enderror"
-                                            id="cpf" name="cpf" value="{{ old('cpf') }}" required>
+                                            id="cpf" name="cpf" value="{{ old('cpf') }}">
                                         @error('cpf')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -78,7 +78,7 @@
                                         <label for="telefone" class="form-label">Telefone *</label>
                                         <input type="text"
                                             class="form-control @error('telefone') is-invalid @enderror" id="telefone"
-                                            name="telefone" value="{{ old('telefone') }}" required>
+                                            name="telefone" value="{{ old('telefone') }}">
                                         @error('telefone')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -95,7 +95,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="email" class="form-label">E-mail *</label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            id="email" name="email" value="{{ old('email') }}" required>
+                                            id="email" name="email" value="{{ old('email') }}">
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -103,7 +103,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="senha" class="form-label">Senha *</label>
                                         <input type="password" class="form-control @error('senha') is-invalid @enderror"
-                                            id="senha" name="senha" required>
+                                            id="senha" name="senha">
                                         @error('senha')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -120,7 +120,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="cep" class="form-label">CEP *</label>
                                         <input type="text" class="form-control @error('cep') is-invalid @enderror"
-                                            id="cep" name="cep" value="{{ old('cep') }}" required
+                                            id="cep" name="cep" value="{{ old('cep') }}"
                                             placeholder="00000-000" maxlength="9" onblur="buscarCep(this.value)">
                                         @error('cep')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -131,7 +131,7 @@
                                         <input type="text"
                                             class="form-control @error('logradouro') is-invalid @enderror"
                                             id="logradouro" name="logradouro" value="{{ old('logradouro') }}"
-                                            required maxlength="100">
+                                            maxlength="100">
                                         @error('logradouro')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -165,7 +165,7 @@
                                         <label for="bairro" class="form-label">Bairro *</label>
                                         <input type="text"
                                             class="form-control @error('bairro') is-invalid @enderror" id="bairro"
-                                            name="bairro" value="{{ old('bairro') }}" required maxlength="60">
+                                            name="bairro" value="{{ old('bairro') }}" maxlength="60">
                                         @error('bairro')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -174,7 +174,7 @@
                                         <label for="cidade" class="form-label">Cidade *</label>
                                         <input type="text"
                                             class="form-control @error('cidade') is-invalid @enderror" id="cidade"
-                                            name="cidade" value="{{ old('cidade') }}" required maxlength="60">
+                                            name="cidade" value="{{ old('cidade') }}" maxlength="60">
                                         @error('cidade')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -182,7 +182,7 @@
                                     <div class="col-md-2 mb-3">
                                         <label for="uf" class="form-label">UF *</label>
                                         <input type="text" class="form-control @error('uf') is-invalid @enderror"
-                                            id="uf" name="uf" value="{{ old('uf') }}" required
+                                            id="uf" name="uf" value="{{ old('uf') }}"
                                             maxlength="2">
                                         @error('uf')
                                             <div class="invalid-feedback">{{ $message }}</div>

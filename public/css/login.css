@@ -40,6 +40,20 @@ body {
     background-color: #ffcc33;
     color: #404040;
 }
+.alert {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.btn-close {
+    filter: brightness(0) invert(1);
+}
 
 footer {
     background-color: #404040;

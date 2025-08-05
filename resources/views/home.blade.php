@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -33,9 +34,33 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#">Contato</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('login') }}">Entre</a>
-                    </li>
+                    @if (session('user'))
+                        <!-- Dropdown do perfil quando logado -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle me-1"></i>
+                                {{ session('user.nome') ?? session('user.email') }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                        data-bs-target="#profileModal">
+                                        <i class="fas fa-user me-2"></i>Meu Perfil
+                                    </a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Sair
+                                    </a></li>
+                            </ul>
+                        </li>
+                    @else
+                        <!-- Link de login quando não logado -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('login') }}">Entre</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -109,7 +134,8 @@
             <img src="{{ asset('imagens/bulbasauro.jpg') }}" class="product-image" alt="Bulbasaur Figure">
             <div class="card-body product-info">
                 <h3 class="card-title">Bulbasaur</h3>
-                <p class="card-text">Figura colecionável de Bulbasaur com detalhes impressionantes. Feito em PVC de alta
+                <p class="card-text">Figura colecionável de Bulbasaur com detalhes impressionantes. Feito em PVC de
+                    alta
                     qualidade, 12cm de altura.</p>
                 <div class="product-actions">
                     <button class="btn btn-pokemon">Comprar - R$ 75,90</button>
@@ -119,7 +145,44 @@
         </div>
 
     </div>
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-pokemon">
+                    <h5 class="modal-title text-white" id="profileModalLabel">Meu Perfil</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if (session('user'))
+                        <div class="text-center mb-4">
+                            <div class="profile-avatar mb-3">
+                                <i class="fas fa-user-circle fa-5x text-secondary"></i>
+                            </div>
+                            <h4>{{ session('user.nome') ?? 'Usuário' }}</h4>
+                            <p class="text-muted">{{ session('user.email') }}</p>
+                        </div>
 
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-history me-2"></i> Meus Pedidos
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-heart me-2"></i> Favoritos
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-cog me-2"></i> Configurações
+                            </a>
+                        </div>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2025 Pokémon Action Figures. Todos os direitos reservados.</p>
