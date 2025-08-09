@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\categoriaController;
+use App\Http\Controllers\elementoContorller;
+use App\Http\Controllers\elementoController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\produtoController;
@@ -29,21 +31,36 @@ Route::middleware([CheckIsLogged::class])->group(function () {
         /**
         * Rotas Admin
         */
-        Route::get('admin',[adminController::class,'index'])->name('admin');
+        Route::get('/admin',[adminController::class,'index'])->name('admin');
 
         /**
          * Rotas Produtos
          */
-        Route::get('showProdutos',[produtoController::class,'index'])->name('showProdutos');
+        Route::get('/showProdutos',[produtoController::class,'index'])->name('showProdutos');
+        Route::get('/filtroProdutos',[produtoController::class,'filtro'])->name('filtroProdutos');
+        Route::post('/cadastrarProdutos',[produtoController::class,'cadastrar'])->name('cadastrarProdutos');
+        Route::post('/editarProduto/{id}',[produtoController::class,'editar'])->name('editarProduto');
 
         /**
          * Rotas Categorias
          */
-        Route::get('filtroCategorias',[categoriaController::class,'filtro'])->name('filtroCategorias');
-        Route::get('showCategorias',[categoriaController::class,'index'])->name('showCategorias');
-        Route::post('cadastrarCategoria',[categoriaController::class,'cadastrar'])->name('cadastrarCategoria');
-        Route::post('editarCategoria/{id}',[categoriaController::class,'editar'])->name('editarCategoria');
-        Route::post('excluirCategoria/{id}',[categoriaController::class,'excluir'])->name('excluirCategoria');
+        Route::get('/filtroCategorias',[categoriaController::class,'filtro'])->name('filtroCategorias');
+        Route::get('/showCategorias',[categoriaController::class,'index'])->name('showCategorias');
+        Route::post('/cadastrarCategoria',[categoriaController::class,'cadastrar'])->name('cadastrarCategoria');
+        Route::post('/editarCategoria/{id}',[categoriaController::class,'editar'])->name('editarCategoria');
+        Route::post('/excluirCategoria/{id}',[categoriaController::class,'excluir'])->name('excluirCategoria');
+
+        /**
+         * Rotas Elementos
+         */
+        Route::get('/showElementos',[elementoController::class,'index'])->name('showElementos');
+        Route::get('/filtroElementos',[elementoController::class,'filtro'])->name('filtroElementos');
+        Route::post('/cadastrarElemento',[elementoController::class,'cadastrar'])->name('cadastrarElemento');
+        Route::post('/editarElemento/{id}',[elementoController::class,'editar'])->name('editarElemento');
+        Route::post('/excluirElemento/{id}',[elementoController::class,'excluir'])->name('excluirElemento');
+
+
+
     });
 
      Route::middleware([CheckIsUser::class])->group(function () {

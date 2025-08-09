@@ -4,20 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class categoriaModel extends Model
+class elementoModel extends Model
 {
-    protected $table = 'categorias';
+    protected $table = 'elementos';
     protected $fillable = ['nome'];
 
-    public function buscaCategorias(){
+    public function buscaElementos(){
         return $this->where('deleted_at',NULL)->select('id','nome')->paginate(10);
     }
-    public function buscaTodasCategorias(){
+    public function buscaTodosElementos(){
         return $this->where('deleted_at', null)
                 ->select('id', 'nome')
                 ->get();
     }
-    public function buscaCategoria($id){
+    public function buscaElemento($id){
         return $this->where('id',$id)
                     ->where('deleted_at',NULL)
                     ->first();

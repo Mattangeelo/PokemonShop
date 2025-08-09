@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokemonShop - @yield('title')</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">   
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     @stack('styles')
 </head>
@@ -34,7 +35,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('admin/categorias*') ? 'active' : '' }}" href="{{ route('showCategorias') }}">
-                            <i class="fas fa-box-open me-2"></i> Categorias
+                            <i class="fas fa-tags me-2"></i> Categorias
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('admin/elementos*') ? 'active' : '' }}" href="{{ route('showElementos') }}">
+                            <i class="fas fa-fire me-2"></i> Elementos Pokemons
                         </a>
                     </li>
                     <li class="nav-item">
@@ -73,6 +79,8 @@
 
     @stack('modals')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @stack('scripts')
 </body>
 </html>
