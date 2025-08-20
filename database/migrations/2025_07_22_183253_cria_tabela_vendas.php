@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('valor');
             $table->dateTime('data');
 
-
             $table->foreign('usuario_id')->references('id')->on('usuarios');
         });
     }

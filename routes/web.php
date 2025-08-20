@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoriaController;
 use App\Http\Controllers\elementoContorller;
 use App\Http\Controllers\elementoController;
@@ -39,7 +40,9 @@ Route::middleware([CheckIsLogged::class])->group(function () {
         Route::get('/showProdutos',[produtoController::class,'index'])->name('showProdutos');
         Route::get('/filtroProdutos',[produtoController::class,'filtro'])->name('filtroProdutos');
         Route::post('/cadastrarProdutos',[produtoController::class,'cadastrar'])->name('cadastrarProdutos');
+        Route::get('/showEditarProduto/{id}',[produtoController::class,'showEditar'])->name('showEditarProduto');
         Route::post('/editarProduto/{id}',[produtoController::class,'editar'])->name('editarProduto');
+        Route::post('/excluirProduto/{id}',[produtoController::class,'excluir'])->name('excluirProduto');
 
         /**
          * Rotas Categorias
@@ -64,7 +67,7 @@ Route::middleware([CheckIsLogged::class])->group(function () {
     });
 
      Route::middleware([CheckIsUser::class])->group(function () {
-
+        Route::get('/showComprar' , [carrinhoController::class,'index'])->name('showComprar');
     });
 
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
@@ -72,5 +75,7 @@ Route::middleware([CheckIsLogged::class])->group(function () {
 
 
 Route::get('/',[homeController::class,'index'])->name('/');
+Route::get('/fitlro',[homeController::class,'filtro'])->name('filtro');
+
 
 

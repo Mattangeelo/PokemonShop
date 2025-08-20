@@ -31,8 +31,7 @@
                     <select name="tipo" class="form-select">
                         <option value="">Todos os tipos</option>
                         @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->nome }}"
-                                {{ request('tipo') == $categoria->nome ? 'selected' : '' }}>
+                            <option value="{{ $categoria->nome }}" {{ request('tipo') == $categoria->nome ? 'selected' : '' }}>
                                 {{ $categoria->nome }}
                             </option>
                         @endforeach
@@ -42,8 +41,7 @@
                     <select name="elemento" class="form-select">
                         <option value="">Todos os elementos</option>
                         @foreach ($elementos as $elemento)
-                            <option value="{{ $elemento->nome }}"
-                                {{ request('elemento') == $elemento->nome ? 'selected' : '' }}>
+                            <option value="{{ $elemento->nome }}" {{ request('elemento') == $elemento->nome ? 'selected' : '' }}>
                                 {{ $elemento->nome }}
                             </option>
                         @endforeach
@@ -101,9 +99,8 @@
                         @foreach ($produtos as $produto)
                             <tr>
                                 <td>
-                                    <img src="{{ asset('storage/produtos/' . $produto->imagem) }}"
-                                        alt="{{ $produto->nome }}" class="img-thumbnail"
-                                        style="width: 60px; height: 60px; object-fit: cover;">
+                                    <img src="{{ asset('storage/produtos/' . $produto->imagem) }}" alt="{{ $produto->nome }}"
+                                        class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
                                 </td>
                                 <td>{{ $produto->nome }}</td>
                                 <td>
@@ -130,15 +127,16 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#editCategoryModal" data-id="{{ Crypt::encrypt($elemento->id) }}"
-                                        data-nome="{{ $elemento->nome }}">
-                                        Editar
+                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal">
+                                        <a href="{{ route('showEditarProduto', Crypt::encrypt($produto->id)) }}"
+                                            class="btn btn-sm btn-warning">
+                                            Editar
+                                        </a>
                                     </button>
 
                                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteCategoryModal" data-id="{{ Crypt::encrypt($elemento->id) }}"
-                                        data-nome="{{ $elemento->nome }}">
+                                        data-bs-target="#deleteProductModal" data-id="{{ Crypt::encrypt($produto->id) }}"
+                                        data-nome="{{ $produto->nome }}">
                                         Excluir
                                     </button>
                                 </td>
@@ -179,10 +177,10 @@
                 </ul>
             </nav>
         </div>
-    @endsection
+@endsection
 
     @push('modals')
-        <!-- Modal Adicionar Produto -->
+
         <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -212,14 +210,14 @@
 
                                     <div class="mb-3">
                                         <label for="nome" class="form-label">Nome do Produto*</label>
-                                        <input type="text" class="form-control" id="nome" name="nome"
-                                            required>
+                                        <input type="text" class="form-control" id="nome" name="nome" required>
                                     </div>
 
 
                                     <div class="mb-3">
                                         <label for="descricao" class="form-label">Descrição*</label>
-                                        <textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
+                                        <textarea class="form-control" id="descricao" name="descricao" rows="3"
+                                            required></textarea>
                                     </div>
 
 
@@ -233,8 +231,7 @@
                                         <label for="preco" class="form-label">Preço*</label>
                                         <div class="input-group">
                                             <span class="input-group-text">R$</span>
-                                            <input type="text" class="form-control" id="preco" name="preco"
-                                                required>
+                                            <input type="text" class="form-control" id="preco" name="preco" required>
                                         </div>
                                     </div>
                                 </div>
@@ -244,8 +241,7 @@
 
                                     <div class="mb-3">
                                         <label for="categoria_id" class="form-label">Categoria*</label>
-                                        <select class="form-select select2" id="categoria_id" name="categoria_id"
-                                            required>
+                                        <select class="form-select select2" id="categoria_id" name="categoria_id" required>
                                             <option value="" selected disabled>Selecione uma categoria</option>
                                             @foreach ($categorias as $categoria)
                                                 <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
@@ -267,15 +263,15 @@
 
                                     <div class="mb-3">
                                         <label for="quantidade" class="form-label">Quantidade em Estoque*</label>
-                                        <input type="number" class="form-control" id="quantidade" name="quantidade"
-                                            min="0" required>
+                                        <input type="number" class="form-control" id="quantidade" name="quantidade" min="0"
+                                            required>
                                     </div>
 
 
                                     <div class="mb-3">
                                         <label for="imagem" class="form-label">Imagem do Produto*</label>
-                                        <input class="form-control" type="file" id="imagem" name="imagem"
-                                            accept="image/*" required>
+                                        <input class="form-control" type="file" id="imagem" name="imagem" accept="image/*"
+                                            required>
                                         <small class="text-muted">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo:
                                             2MB</small>
                                     </div>
@@ -294,94 +290,30 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
+
+        <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="editProductForm" method="POST" enctype="multipart/form-data">
+                    <form id="deleteProductForm" method="POST" action="">
                         @csrf
-                        <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title" id="editProductModalLabel">
-                                <i class="fas fa-edit me-2"></i>Editar Produto
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="deleteProductModalLabel">
+                                <i class="fas fa-trash-alt me-2"></i>Excluir Produto
                             </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                                aria-label="Fechar"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="edit_nome" class="form-label">Nome do Produto*</label>
-                                        <input type="text" class="form-control" id="edit_nome" name="nome"
-                                            required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_descricao" class="form-label">Descrição*</label>
-                                        <textarea class="form-control" id="edit_descricao" name="descricao" rows="3" required></textarea>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_numeracao" class="form-label">Numeração/Modelo</label>
-                                        <input type="text" class="form-control" id="edit_numeracao" name="numeracao">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_preco" class="form-label">Preço*</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">R$</span>
-                                            <input type="text" class="form-control" id="edit_preco" name="preco"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="edit_categoria_id" class="form-label">Categoria*</label>
-                                        <select class="form-select select2" id="edit_categoria_id" name="categoria_id"
-                                            required>
-                                            @foreach ($categorias as $categoria)
-                                                <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_elemento_id" class="form-label">Elemento Pokémon*</label>
-                                        <select class="form-select select2" id="edit_elemento_id" name="elemento_id"
-                                            required>
-                                            @foreach ($elementos as $elemento)
-                                                <option value="{{ $elemento->id }}">{{ $elemento->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_quantidade" class="form-label">Quantidade em Estoque*</label>
-                                        <input type="number" class="form-control" id="edit_quantidade"
-                                            name="quantidade" min="0" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_imagem" class="form-label">Imagem do Produto</label>
-                                        <input class="form-control" type="file" id="edit_imagem" name="imagem"
-                                            accept="image/*">
-                                        <small class="text-muted">Deixe em branco para manter a imagem atual</small>
-                                        <div class="mt-2">
-                                            <img id="edit_imagem_preview" src="" class="img-thumbnail"
-                                                style="width: 100px; height: 100px; object-fit: cover;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            Tem certeza que deseja excluir o produto <strong id="deleteProductName"></strong>?
+                            <br><small class="text-muted">Esta ação não poderá ser desfeita.</small>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 <i class="fas fa-times me-1"></i> Cancelar
                             </button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-1"></i> Salvar Alterações
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt me-1"></i> Excluir
                             </button>
                         </div>
                     </form>
@@ -393,9 +325,10 @@
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
-            $(document).ready(function() {
-                // Inicializa o Select2 quando o modal é aberto
-                $('#addProductModal').on('shown.bs.modal', function() {
+            document.addEventListener('DOMContentLoaded', function () {
+
+
+                $('#addProductModal').on('shown.bs.modal', function () {
                     $('.select2').select2({
                         placeholder: "Selecione uma opção",
                         allowClear: true,
@@ -404,34 +337,23 @@
                     });
                 });
 
-                // Máscara para o preço
-                $('#preco').mask('000.000.000.000.000,00', {
-                    reverse: true
-                });
 
-                // Configuração do modal de edição
-                document.getElementById('editCategoryModal').addEventListener('show.bs.modal', function(event) {
-                    var button = event.relatedTarget;
-                    var id = button.getAttribute('data-id');
-                    var nome = button.getAttribute('data-nome');
+                $('#preco').mask('000.000.000.000.000,00', { reverse: true });
 
-                    var form = document.getElementById('editCategoryForm');
-                    form.action = `/editarProduto/${id}`;
 
-                    document.getElementById('editCategoryName').value = nome;
-                });
 
-                // Configuração do modal de exclusão
-                document.getElementById('deleteCategoryModal').addEventListener('show.bs.modal', function(event) {
-                    var button = event.relatedTarget;
-                    var id = button.getAttribute('data-id');
-                    var nome = button.getAttribute('data-nome');
 
-                    var form = document.getElementById('deleteCategoryForm');
-                    form.action = `/excluirProduto/${id}`;
+            });
 
-                    document.getElementById('deleteCategoryName').textContent = nome;
-                });
+            document.getElementById('deleteProductModal').addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var id = button.getAttribute('data-id');
+                var nome = button.getAttribute('data-nome');
+
+                var form = document.getElementById('deleteProductForm');
+                form.action = `/excluirProduto/${id}`;
+
+                document.getElementById('deleteProductName').textContent = nome;
             });
         </script>
     @endpush

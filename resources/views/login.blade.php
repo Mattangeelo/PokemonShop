@@ -9,12 +9,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('imagens/mini.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('imagens/pikachuIcone.png') }}">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{route('/')}}">
                 <img src="{{ asset('imagens/logo.png') }}" alt="Logo Pokémon">
             </a>
             <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"

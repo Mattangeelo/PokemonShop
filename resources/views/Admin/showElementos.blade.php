@@ -157,23 +157,31 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
+    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteCategoryModalLabel">Confirmar Exclusão</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="POST" id="deleteCategoryForm">
+                <form method="POST" id="deleteProductForm">
                     @csrf
+                    @method('DELETE')
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="deleteProductModalLabel">
+                            <i class="fas fa-trash-alt me-2"></i>Excluir Produto
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
                     <div class="modal-body">
-                        <p>Tem certeza que deseja excluir o elemento "<span id="deleteCategoryName"></span>"?</p>
-                        <p class="text-danger">Esta ação não pode ser desfeita!</p>
+                        <p>Tem certeza que deseja excluir o produto "<strong id="deleteProductName"></strong>"?</p>
+                        <p class="text-danger">Esta ação não poderá ser desfeita.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-1"></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt me-1"></i> Excluir
+                        </button>
                     </div>
                 </form>
             </div>
@@ -189,7 +197,7 @@
                 var editModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
                 editModal.show();
             @else
-                var addModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
+                            var addModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
                 addModal.show();
             @endif
         </script>
@@ -197,7 +205,7 @@
 
     <script>
         // Configuração do modal de edição
-        document.getElementById('editCategoryModal').addEventListener('show.bs.modal', function(event) {
+        document.getElementById('editCategoryModal').addEventListener('show.bs.modal', function (event) {
             var button = event.relatedTarget;
             var id = button.getAttribute('data-id');
             var nome = button.getAttribute('data-nome');
@@ -208,16 +216,15 @@
             document.getElementById('editCategoryName').value = nome;
         });
 
-        // Configuração do modal de exclusão
-        document.getElementById('deleteCategoryModal').addEventListener('show.bs.modal', function(event) {
+       document.getElementById('deleteProductModal').addEventListener('show.bs.modal', function(event) {
             var button = event.relatedTarget;
             var id = button.getAttribute('data-id');
             var nome = button.getAttribute('data-nome');
 
-            var form = document.getElementById('deleteCategoryForm');
-            form.action = `/excluirElemento/${id}`;
+            var form = document.getElementById('deleteProductForm');
+            form.action = `/excluirProduto/${id}`;
 
-            document.getElementById('deleteCategoryName').textContent = nome;
+            document.getElementById('deleteProductName').textContent = nome;
         });
     </script>
 @endpush

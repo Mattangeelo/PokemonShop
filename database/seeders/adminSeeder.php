@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         DB::table('admins')->insert([
-            'email' => 'admin@exemplo.com',
+            'email' => 'admin@admin.com',
             'senha' => Hash::make('123456'),
             'ativo' => true,
             'created_at' => Carbon::now(),
