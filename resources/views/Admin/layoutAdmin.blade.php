@@ -59,6 +59,11 @@
                             <i class="fas fa-chart-line me-2"></i> Relatórios
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('admin/sair*') ? 'active' : '' }}" href="{{ url('logout') }}">
+                            <i class="fas fa-chart-bar me-2"></i> Sair
+                        </a>
+                    </li>
                 </ul>
 
                 <div class="sidebar-footer mt-auto p-3">

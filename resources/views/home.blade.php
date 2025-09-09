@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    @php use Illuminate\Support\Str; @endphp
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">

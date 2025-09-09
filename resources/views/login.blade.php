@@ -27,11 +27,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ asset('/') }}">Início</a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Contato</a>
+                        <a class="nav-link text-white" href="{{route('contato')}}">Contato</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('login') }}">Entre</a>
