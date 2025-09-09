@@ -29,18 +29,18 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ asset('/') }}">Início</a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Contato</a>
+                        <a class="nav-link text-white" href="{{route('contato')}}">Contato</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="{{ asset('carrinho') }}">
                             <i class="fas fa-shopping-cart"></i> Carrinho
-                            <span class="badge bg-danger ms-1">3</span>
+                            <span class="badge bg-danger ms-1">
+                                {{ count(session('carrinho', [])) }}
+                            </span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -83,6 +83,15 @@
 
     <div class="container mt-4">
         <div class="row collections-banner">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $erro)
+                                        <li>{{ $erro }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
             <!-- Coleção 1 - Exibindo um produto específico do banco -->
             <div class="col-md-6 mb-4">
                 <div class="collection-card collection-1">
@@ -275,8 +284,7 @@
                                     @endif
                                 </div>
                                 <div class="product-actions">
-                                    <!-- Botão Comprar - Redireciona para a rota de compra -->
-                                    <a href="{{ route('showComprar', $produto->id) }}" class="btn btn-pokemon">
+                                    <a href="{{ route('showComprar', Crypt::encrypt($produto->id)) }}" class="btn btn-pokemon">
                                         <i class="fas fa-shopping-cart me-1"></i> Comprar
                                     </a>
                                     <a href="#" class="btn btn-details">
@@ -408,9 +416,9 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Função para os filtros (pode ser implementada com JavaScript real posteriormente)
+        
         document.addEventListener('DOMContentLoaded', function () {
-            // Exemplo de interação com os filtros
+            
             const badges = document.querySelectorAll('.pokemon-element .badge');
             badges.forEach(badge => {
                 badge.addEventListener('click', function () {
@@ -418,19 +426,18 @@
                 });
             });
 
-            // Atualizar valor do range de preço
+            
             const priceRange = document.getElementById('priceRange');
             priceRange.addEventListener('input', function () {
-                // Aqui você pode atualizar a exibição do valor selecionado
+               
                 console.log('Preço selecionado:', this.value);
             });
         });
         document.addEventListener('DOMContentLoaded', function () {
-    // Elementos filtrados
+
     const elementosSelecionados = [];
     const elementosInput = document.getElementById('elementosInput');
     
-    // Atualizar elementos selecionados
     document.querySelectorAll('.element-filter').forEach(badge => {
         const elementoId = badge.getAttribute('data-elemento');
         const isSelected = badge.getAttribute('data-selected') === 'true';
@@ -455,7 +462,6 @@
         });
     });
 
-    // Atualizar valor do range de preço
     const priceRange = document.getElementById('priceRange');
     const priceValue = document.getElementById('priceValue');
     
@@ -463,16 +469,16 @@
         priceValue.textContent = 'R$ ' + this.value;
     });
     
-    // Inicializar valor do range
+
     priceValue.textContent = 'R$ ' + priceRange.value;
 });
 
 function limparFiltros() {
-    // Redirecionar para a página inicial sem parâmetros
+    
     window.location.href = "{{ route('/') }}";
 }
 
-// Enviar formulário quando checkbox for alterado
+
 document.querySelectorAll('.category-filter').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
         document.getElementById('filterForm').submit();

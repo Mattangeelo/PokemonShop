@@ -1,0 +1,190 @@
+ :root {
+     --pokemon-red: #E3350D;
+     --pokemon-blue: #4DAD5B;
+     --pokemon-yellow: #FECA1B;
+ }
+
+ body {
+     background-color: #f5f7fa;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     display: flex;
+     flex-direction: column;
+     min-height: 100vh;
+ }
+
+ .main-content {
+     flex: 1 0 auto;
+ }
+
+ .navbar {
+     background-color: rgba(10, 10, 10, 0.15);
+     backdrop-filter: blur(10px);
+     -webkit-backdrop-filter: blur(10px);
+     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+ }
+
+ .navbar-brand img {
+     height: 50px;
+ }
+
+ .nav-link {
+     font-weight: 500;
+     color: white !important;
+ }
+
+ .nav-link:hover {
+     color: var(--primary-color) !important;
+ }
+
+ .bg-pokemon {
+     background-color: var(--pokemon-red);
+ }
+
+ .btn-pokemon {
+     background-color: var(--pokemon-red);
+     color: white;
+     border: none;
+ }
+
+ .btn-pokemon:hover {
+     background-color: #c12a0a;
+     color: white;
+ }
+
+ .product-image {
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .badge-fire {
+     background-color: #EE8130;
+     color: white;
+ }
+
+ .badge-water {
+     background-color: #6390F0;
+     color: white;
+ }
+
+ .badge-grass {
+     background-color: #7AC74C;
+     color: white;
+ }
+
+ .badge-electric {
+     background-color: #F7D02C;
+     color: black;
+ }
+
+ .badge-psychic {
+     background-color: #F95587;
+     color: white;
+ }
+
+ .badge-ice {
+     background-color: #96D9D6;
+     color: black;
+ }
+
+ .badge-dragon {
+     background-color: #6F35FC;
+     color: white;
+ }
+
+ .badge-dark {
+     background-color: #705746;
+     color: white;
+ }
+
+ .badge-fairy {
+     background-color: #D685AD;
+     color: white;
+ }
+
+ .badge-normal {
+     background-color: #A8A77A;
+     color: white;
+ }
+
+ .badge-fighting {
+     background-color: #C22E28;
+     color: white;
+ }
+
+ .badge-flying {
+     background-color: #A98FF3;
+     color: white;
+ }
+
+ .badge-poison {
+     background-color: #A33EA1;
+     color: white;
+ }
+
+ .badge-ground {
+     background-color: #E2BF65;
+     color: black;
+ }
+
+ .badge-rock {
+     background-color: #B6A136;
+     color: white;
+ }
+
+ .badge-bug {
+     background-color: #A6B91A;
+     color: white;
+ }
+
+ .badge-ghost {
+     background-color: #735797;
+     color: white;
+ }
+
+ .badge-steel {
+     background-color: #B7B7CE;
+     color: black;
+ }
+
+ .price-tag {
+     font-size: 1.8rem;
+     font-weight: bold;
+     color: #E3350D;
+ }
+
+ .discount {
+     text-decoration: line-through;
+     color: #6c757d;
+     font-size: 1.2rem;
+ }
+
+ .product-details-card {
+     border-radius: 15px;
+     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+     border: none;
+ }
+
+ .quantity-selector {
+     width: 100px;
+ }
+
+ /* Estilos específicos para o footer */
+ footer {
+     background-color: #212529;
+     color: white;
+     flex-shrink: 0;
+     margin-top: auto;
+ }
+
+ footer a {
+     text-decoration: none;
+     transition: color 0.3s;
+ }
+
+ footer a:hover {
+     color: var(--pokemon-yellow) !important;
+ }
+
+ footer .text-warning {
+     color: var(--pokemon-yellow) !important;
+ }

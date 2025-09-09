@@ -73,4 +73,8 @@ class homeController extends Controller
         $produtos = $this->produtoModel->buscaProdutos();
         return view('home', compact('elementos', 'categorias', 'produtos'));
     }
+
+    public function contato(){
+        return view('contato');
+    }
 }

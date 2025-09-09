@@ -8,15 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class produtoModel extends Model
 {
     protected $table = 'produtos';
-    protected $fillable = ['nome','descricao','numeracao','categoria_id','elemento_id','preco','quantidade','imagem'];
+    protected $fillable = ['nome', 'descricao', 'numeracao', 'categoria_id', 'elemento_id', 'preco', 'quantidade', 'imagem'];
 
-    public function buscaProdutos(){
-        return $this->where('deleted_at',NULL)->select('id','nome','descricao','numeracao','categoria_id','elemento_id','preco','quantidade','imagem')->paginate(10);
+    public function buscaProdutos()
+    {
+        return $this->where('deleted_at', NULL)->select('id', 'nome', 'descricao', 'numeracao', 'categoria_id', 'elemento_id', 'preco', 'quantidade', 'imagem')->paginate(10);
     }
-    public function buscaProduto($id){
-        return $this->where('id',$id)
-                    ->where('deleted_at',NULL)
-                    ->first();
+    public function buscaProduto($id)
+    {
+        return $this->where('id', $id)
+            ->where('deleted_at', NULL)
+            ->first();
     }
 
     public function categoria()
@@ -27,5 +29,14 @@ class produtoModel extends Model
     public function elemento()
     {
         return $this->belongsTo(elementoModel::class);
+    }
+
+    public function buscaProdutosPorIds(array $ids)
+    {
+        if (empty($ids)) {
+            return collect();
+        }
+
+        return self::whereIn('id', $ids)->get();
     }
 }

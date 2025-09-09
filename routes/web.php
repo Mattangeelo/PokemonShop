@@ -65,9 +65,15 @@ Route::middleware([CheckIsLogged::class])->group(function () {
 
 
     });
+    /**
+    * Rotas Usuarios 
+    */
 
      Route::middleware([CheckIsUser::class])->group(function () {
-        Route::get('/showComprar' , [carrinhoController::class,'index'])->name('showComprar');
+        Route::get('/showComprar/{id}' , [carrinhoController::class,'index'])->name('showComprar');
+        Route::post('/adicionarCarrinho',[carrinhoController::class,'adicionar'])->name('adicionarCarrinho');
+        Route::get('/carrinho',[carrinhoController::class,'viewCarrinho'])->name('carrinho');
+        Route::post('/limparCarrinho',[carrinhoController::class,'limparCarrinho'])->name('limparCarrinho');
     });
 
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
@@ -76,6 +82,7 @@ Route::middleware([CheckIsLogged::class])->group(function () {
 
 Route::get('/',[homeController::class,'index'])->name('/');
 Route::get('/fitlro',[homeController::class,'filtro'])->name('filtro');
+Route::get('/contato' , [homeController::class,'contato'])->name('contato');
 
 
 
