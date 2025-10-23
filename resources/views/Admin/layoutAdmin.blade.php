@@ -50,6 +50,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->is('admin/estoques*') ? 'active' : '' }}" href="{{ route('showEstoques') }}">
+                            <i class="fas fa-box-open me-2"></i> Estoque
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->is('admin/clientes*') ? 'active' : '' }}" href="{{ url('admin/clientes') }}">
                             <i class="fas fa-users me-2"></i> Clientes
                         </a>

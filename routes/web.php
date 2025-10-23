@@ -3,8 +3,8 @@
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoriaController;
-use App\Http\Controllers\elementoContorller;
 use App\Http\Controllers\elementoController;
+use App\Http\Controllers\estoqueController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\produtoController;
@@ -43,6 +43,14 @@ Route::middleware([CheckIsLogged::class])->group(function () {
         Route::get('/showEditarProduto/{id}',[produtoController::class,'showEditar'])->name('showEditarProduto');
         Route::post('/editarProduto/{id}',[produtoController::class,'editar'])->name('editarProduto');
         Route::post('/excluirProduto/{id}',[produtoController::class,'excluir'])->name('excluirProduto');
+
+        /**
+         * Rotas Estoque
+         */
+        Route::get('/showEstoques',[estoqueController::class,'index'])->name('showEstoques');
+        Route::get('/filtroEstoque',[estoqueController::class,'filtro'])->name('filtroEstoque');
+        Route::post('/adicionarEstoque',[estoqueController::class,'adicionarEstoque'])->name('adicionarEstoque');
+        Route::post('/ajustarEstoque',[estoqueController::class,'ajustarEstoque'])->name('ajustarEstoque');
 
         /**
          * Rotas Categorias

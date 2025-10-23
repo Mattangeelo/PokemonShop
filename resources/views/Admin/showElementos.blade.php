@@ -222,7 +222,7 @@
             var nome = button.getAttribute('data-nome');
 
             var form = document.getElementById('deleteProductForm');
-            form.action = `/excluirProduto/${id}`;
+            form.action = `/excluirElemento/${id}`;
 
             document.getElementById('deleteProductName').textContent = nome;
         });

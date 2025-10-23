@@ -19,7 +19,7 @@ class CheckIsAdmin
         $user = session('user');
     
         if (!isset($user['is_admin']) || !$user['is_admin']) {
-            return redirect()->route('confirmarLoginInscricao')->with('erro', 'Você não tem permissão para acessar esta área.');
+            return redirect()->route('/')->with('erro', 'Você não tem permissão para acessar esta área.');
         }
     
         return $next($request);

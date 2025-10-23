@@ -8,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class produtoModel extends Model
 {
     protected $table = 'produtos';
-    protected $fillable = ['nome', 'descricao', 'numeracao', 'categoria_id', 'elemento_id', 'preco', 'quantidade', 'imagem'];
+    protected $fillable = ['nome', 'descricao', 'numeracao', 'categoria_id', 'elemento_id', 'preco', 'imagem_principal'];
 
     public function buscaProdutos()
     {
-        return $this->where('deleted_at', NULL)->select('id', 'nome', 'descricao', 'numeracao', 'categoria_id', 'elemento_id', 'preco', 'quantidade', 'imagem')->paginate(10);
+        return $this->select('id', 'nome', 'descricao', 'numeracao', 'categoria_id', 'elemento_id', 'preco', 'imagem_principal')->paginate(10);
     }
     public function buscaProduto($id)
     {
         return $this->where('id', $id)
-            ->where('deleted_at', NULL)
             ->first();
     }
 
@@ -38,5 +37,13 @@ class produtoModel extends Model
         }
 
         return self::whereIn('id', $ids)->get();
+    }
+    public function estoque()
+    {
+        return $this->hasOne(estoqueModel::class, 'id_produto', 'id');
+    }
+    public function imagens()
+    {
+        return $this->hasMany('App\Models\produtoImagemModel', 'id_produto', 'id');
     }
 }

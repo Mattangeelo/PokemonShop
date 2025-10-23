@@ -10,16 +10,15 @@ class elementoModel extends Model
     protected $fillable = ['nome'];
 
     public function buscaElementos(){
-        return $this->where('deleted_at',NULL)->select('id','nome')->paginate(10);
+        return $this->select('id','nome')->paginate(10);
     }
     public function buscaTodosElementos(){
-        return $this->where('deleted_at', null)
+        return $this
                 ->select('id', 'nome')
                 ->get();
     }
     public function buscaElemento($id){
         return $this->where('id',$id)
-                    ->where('deleted_at',NULL)
                     ->first();
     }
 }

@@ -76,8 +76,6 @@ class carrinhoController extends Controller
         ]);
 
 
-        $produto = $this->produtoModel->buscaProduto($request->input('produto_id'));
-
         if (! $produto = $this->produtoModel->buscaProduto($request->input('produto_id'))) {
             return redirect()->back()->with('error', 'O produto que você está tentando comprar não foi encontrado!');
         }

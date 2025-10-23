@@ -14,10 +14,13 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('admins')->insert([
+        DB::table('usuarios')->insert([
             'email' => 'admin@admin.com',
+            'nome' => 'Matheus Angelo',
             'senha' => Hash::make('123456'),
-            'ativo' => true,
+            'telefone' => '(44)99804-0796',
+            'cpf' => '436.433.078-70',
+            'id_categoria'=> 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

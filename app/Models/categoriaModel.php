@@ -10,16 +10,15 @@ class categoriaModel extends Model
     protected $fillable = ['nome'];
 
     public function buscaCategorias(){
-        return $this->where('deleted_at',NULL)->select('id','nome')->paginate(10);
+        return $this->select('id','nome')->paginate(10);
     }
     public function buscaTodasCategorias(){
-        return $this->where('deleted_at', null)
+        return $this
                 ->select('id', 'nome')
                 ->get();
     }
     public function buscaCategoria($id){
         return $this->where('id',$id)
-                    ->where('deleted_at',NULL)
                     ->first();
     }
 }

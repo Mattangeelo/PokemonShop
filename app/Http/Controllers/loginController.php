@@ -8,82 +8,19 @@ use Illuminate\Support\Facades\Hash;
 
 class loginController extends Controller
 {
-    private $adminModel;
     private $usuarioModel;
+    private $enderecoModel;
 
     public function __construct()
     {
-        $this->adminModel = new \App\Models\adminModel();
         $this->usuarioModel = new \App\Models\usuarioModel();
+        $this->enderecoModel = new \App\Models\enderecoModel();
     }
     public function index()
     {
         return view('login');
     }
 
-    public function loginSubmit(Request $request)
-    {
-        $request->validate(
-            [
-                'email' => 'required|email',
-                'password' => 'required|min:6|max:16'
-            ],
-            [
-                'email.required' => 'O campo email deve ser preenchido.',
-                'email.email' => 'O email inserido deve ser um email válido.',
-                'password.required' => 'O campo senha deve ser preenchido.',
-                'password.min' => 'O campo senha deve conter no mínimo 6 caracteres.',
-                'password.max' => 'O campo senha deve conter no máximo 16 caracteres.'
-            ]
-        );
-
-        $email = $request->input('email');
-        $senha = $request->input('password');
-
-        /**
-         * Verifica se o email está cadastrado no admin
-         * Tenta criar uma variavel que vai receber o dados do admin
-         * Se conseguir ser criado, verifica a senha com o que está cadastrado
-         * Caso contrario, retorna com erro.
-         */
-        if ($admin = $this->adminModel->existeEmail($email)) {
-
-            if (! Hash::check($senha, $admin['senha'])) {
-                return redirect()->back()->with('loginError', 'Email ou senha invalidos, por favor tente novamente!');
-            }
-
-            session([
-                'user' => [
-                    'id' => $admin['id'],
-                    'email' => $admin['email'],
-                    'is_admin' => true,
-                ],
-            ]);
-
-            return redirect('admin');
-        }
-
-        /**
-         * Verifica se o email esta cadastrado nos usuarios
-         */
-        if ($usuario = $this->usuarioModel->buscaEmail($email)) {
-            if (! Hash::check($senha, $usuario['senha'])) {
-                return redirect()->back()->with('loginError', 'Email ou senha invalidos, por favor tente novamente!');
-            }
-
-            session([
-                'user' => [
-                    'id' => $usuario['id'],
-                    'nome' => $usuario['nome'],
-                    'email' => $usuario['email'],
-                ],
-            ]);
-
-            return redirect('/');
-        }
-
-        return redirect()->back()->with('loginError', 'Você ainda não possui um cadastro, por favor cadastre-se!');
-    }
 
     public function logout()
     {
@@ -175,18 +112,78 @@ class loginController extends Controller
             'email' => $email,
             'senha' => Hash::make($senha),
             'telefone' => $telefone,
+            'id_categoria' => 2
+        ];
+        /**
+         * Inserimos o Usuario no banco, depois buscamos ele para pegar o Id e colocar o endereço cadastrado. 
+         */
+
+        $this->usuarioModel->create($data);
+
+        $usuario = $this->usuarioModel->buscaEmail($email);
+
+
+        $dataEndereco = [
+            'id_usuario' => $usuario['id'],
             'cep' => $cep,
             'logradouro' => $dataCep->logradouro,
             'numero' => $numero,
             'complemento' => $complemento,
             'bairro' => $dataCep->bairro,
-            'cidade' => $dataCep->localidade,
+            'localidade' => $dataCep->localidade,
             'uf' => $dataCep->uf,
-
         ];
 
-        $this->usuarioModel->create($data);
+        $this->enderecoModel->create($dataEndereco);
 
         return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso!');
+    }
+
+    public function loginSubmit(Request $request){
+        $request->validate(
+            [
+                'email' => 'required|email',
+                'password' => 'required|min:6|max:16'
+            ],
+            [
+                'email.required' => 'O campo email deve ser preenchido.',
+                'email.email' => 'O email inserido deve ser um email válido.',
+                'password.required' => 'O campo senha deve ser preenchido.',
+                'password.min' => 'O campo senha deve conter no mínimo 6 caracteres.',
+                'password.max' => 'O campo senha deve conter no máximo 16 caracteres.'
+            ]
+        );
+
+        $email = $request->input('email');
+        $senha = $request->input('password');
+
+        if($usuario = $this->usuarioModel->buscaEmail($email)){
+            if(!Hash::check($senha,$usuario['senha'])){
+                return redirect()->back()->with('loginError','Email ou senha invalidos, por favor tente novamente!');
+            }
+
+            if($usuario['id_categoria'] === 1){
+                session([
+                    'user' => [
+                        'id' => $usuario['id'],
+                        'nome' => $usuario['nome'],
+                        'email' => $usuario['email'],
+                        'is_admin' => TRUE
+                    ]
+                ]);
+                return redirect()->route('admin');
+            }else{
+                session([
+                    'user' => [
+                        'id' => $usuario['id'],
+                        'nome' => $usuario['nome'],
+                        'email' => $usuario['email'],
+                    ],
+                ]);
+                return redirect()->route('/');
+            }
+        }else{
+            return redirect()->back()->with('loginError','Email ou senha invalidos, por favor tente novamente!');
+        }
     }
 }

@@ -14,7 +14,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route ('editarProduto',Crypt::encrypt($produto->id))}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('editarProduto', Crypt::encrypt($produto->id)) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                 @if($errors->any())
@@ -84,19 +84,69 @@
                         <div class="mb-3">
                             <label for="quantidade" class="form-label">Quantidade em Estoque*</label>
                             <input type="number" class="form-control" id="quantidade" name="quantidade" 
-                                   value="{{ old('quantidade', $produto->quantidade) }}" min="0" required>
+                                   value="{{ old('quantidade', $produto->estoque->quantidade ?? 0) }}" min="0" required>
                         </div>
 
+                        <!-- Imagem Principal -->
                         <div class="mb-3">
-                            <label for="imagem" class="form-label">Imagem do Produto</label>
-                            <input class="form-control" type="file" id="imagem" name="imagem" accept="image/*">
+                            <label for="imagem_principal" class="form-label">Imagem Principal</label>
+                            @if($produto->imagem_principal)
+                                <div class="mb-2">
+                                    <img src="{{ asset('storage/produtos/' . $produto->imagem_principal) }}" 
+                                         alt="Imagem principal" class="img-thumbnail" 
+                                         style="width: 100px; height: 100px; object-fit: cover;">
+                                </div>
+                            @endif
+                            <input class="form-control" type="file" id="imagem_principal" name="imagem_principal" accept="image/*">
                             <small class="text-muted">Deixe em branco para manter a imagem atual</small>
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/produtos/' . $produto->imagem) }}" 
-                                     class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
-                                <input type="hidden" name="imagem_atual" value="{{ $produto->imagem }}">
-                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Seção de Imagens Adicionais Existentes -->
+                @if(isset($produto->imagens) && $produto->imagens->count() > 0)
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h5>Imagens Adicionais Existentes</h5>
+                        <div class="row">
+                            @foreach($produto->imagens as $imagem)
+                            <div class="col-md-3 mb-3">
+                                <div class="card">
+                                    <img src="{{ asset('storage/' . $imagem->caminho_imagem) }}" 
+                                         class="card-img-top" alt="Imagem adicional" 
+                                         style="height: 150px; object-fit: cover;">
+                                    <div class="card-body text-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" 
+                                                   name="imagens_remover[]" value="{{ $imagem->id }}" 
+                                                   id="imagem_{{ $imagem->id }}">
+                                            <label class="form-check-label" for="imagem_{{ $imagem->id }}">
+                                                Remover
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                <!-- Seção para Adicionar Novas Imagens -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h5>Adicionar Novas Imagens</h5>
+                        <div class="mb-3">
+                            <input class="form-control" type="file" name="imagens_adicionais[]" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" type="file" name="imagens_adicionais[]" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" type="file" name="imagens_adicionais[]" accept="image/*">
+                        </div>
+                        <small class="text-muted">Máximo 3 imagens adicionais. Deixe em branco para não adicionar novas imagens.</small>
                     </div>
                 </div>
 
@@ -119,8 +169,8 @@
             // Máscara para o preço
             $('#preco').mask('#.##0,00', { reverse: true });
             
-            // Preview da imagem ao selecionar
-            $('#imagem').change(function() {
+            // Preview da imagem principal ao selecionar
+            $('#imagem_principal').change(function() {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
@@ -129,6 +179,38 @@
                     reader.readAsDataURL(this.files[0]);
                 }
             });
+        });
+        
+        $('form').on('submit', function(e) {
+            const imagensExistentes = {{ isset($produto->imagens) ? $produto->imagens->count() : 0 }};
+            const imagensParaRemover = $('input[name="imagens_remover[]"]:checked').length;
+            const novasImagens = $('input[name="imagens_adicionais[]"]').filter(function() {
+                return this.files.length > 0;
+            }).length;
+
+            const totalAposOperacao = imagensExistentes - imagensParaRemover + novasImagens;
+
+            if (totalAposOperacao > 3) {
+                e.preventDefault();
+                alert('Erro: O produto pode ter no máximo 3 imagens adicionais. Você está tentando ter ' + totalAposOperacao + ' imagens.');
+                return false;
+            }
+        });
+
+        
+        $('input[name="imagens_adicionais[]"]').change(function() {
+            const imagensExistentes = {{ isset($produto->imagens) ? $produto->imagens->count() : 0 }};
+            const imagensParaRemover = $('input[name="imagens_remover[]"]:checked').length;
+            const novasImagens = $('input[name="imagens_adicionais[]"]').filter(function() {
+                return this.files.length > 0;
+            }).length;
+
+            const totalAposOperacao = imagensExistentes - imagensParaRemover + novasImagens;
+
+            if (totalAposOperacao > 3) {
+                alert('Atenção: Com estas imagens, o produto terá ' + totalAposOperacao + ' imagens adicionais. O máximo permitido é 3.');
+                $(this).val('');
+            }
         });
     </script>
 @endpush

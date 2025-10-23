@@ -81,6 +81,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -90,7 +91,6 @@
                             <th>Nome</th>
                             <th>Tipo</th>
                             <th>Preço</th>
-                            <th>Estoque</th>
                             <th>Status</th>
                             <th>Ações</th>
                         </tr>
@@ -99,7 +99,7 @@
                         @foreach ($produtos as $produto)
                             <tr>
                                 <td>
-                                    <img src="{{ asset('storage/produtos/' . $produto->imagem) }}" alt="{{ $produto->nome }}"
+                                    <img src="{{ asset('storage/produtos/' . $produto->imagem_principal) }}" alt="{{ $produto->nome }}"
                                         class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
                                 </td>
                                 <td>{{ $produto->nome }}</td>
@@ -110,15 +110,7 @@
                                     @endif
                                 </td>
                                 <td>R$ {{ number_format($produto->preco, 2, ',', '.') }}</td>
-                                <td>
-                                    @if ($produto->quantidade > 10)
-                                        <span class="badge bg-success">{{ $produto->quantidade }} unidades</span>
-                                    @elseif($produto->quantidade > 0)
-                                        <span class="badge bg-warning text-dark">{{ $produto->quantidade }} unidades</span>
-                                    @else
-                                        <span class="badge bg-danger">Esgotado</span>
-                                    @endif
-                                </td>
+                                
                                 <td>
                                     @if ($produto->deleted_at)
                                         <span class="badge bg-secondary">Inativo</span>
@@ -180,7 +172,6 @@
 @endsection
 
     @push('modals')
-
         <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -205,14 +196,11 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-
                                 <div class="col-md-6">
-
                                     <div class="mb-3">
                                         <label for="nome" class="form-label">Nome do Produto*</label>
                                         <input type="text" class="form-control" id="nome" name="nome" required>
                                     </div>
-
 
                                     <div class="mb-3">
                                         <label for="descricao" class="form-label">Descrição*</label>
@@ -220,12 +208,10 @@
                                             required></textarea>
                                     </div>
 
-
                                     <div class="mb-3">
                                         <label for="numeracao" class="form-label">Numeração/Modelo</label>
                                         <input type="text" class="form-control" id="numeracao" name="numeracao">
                                     </div>
-
 
                                     <div class="mb-3">
                                         <label for="preco" class="form-label">Preço*</label>
@@ -234,11 +220,8 @@
                                             <input type="text" class="form-control" id="preco" name="preco" required>
                                         </div>
                                     </div>
-                                </div>
 
-
-                                <div class="col-md-6">
-
+                                    <!-- Categoria movida para cá, abaixo do preço -->
                                     <div class="mb-3">
                                         <label for="categoria_id" class="form-label">Categoria*</label>
                                         <select class="form-select select2" id="categoria_id" name="categoria_id" required>
@@ -248,8 +231,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                </div>
 
-
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="elemento_id" class="form-label">Elemento Pokémon*</label>
                                         <select class="form-select select2" id="elemento_id" name="elemento_id" required>
@@ -260,20 +244,48 @@
                                         </select>
                                     </div>
 
-
                                     <div class="mb-3">
                                         <label for="quantidade" class="form-label">Quantidade em Estoque*</label>
                                         <input type="number" class="form-control" id="quantidade" name="quantidade" min="0"
                                             required>
                                     </div>
 
-
+                                    <!-- Imagem Principal -->
                                     <div class="mb-3">
-                                        <label for="imagem" class="form-label">Imagem do Produto*</label>
-                                        <input class="form-control" type="file" id="imagem" name="imagem" accept="image/*"
-                                            required>
-                                        <small class="text-muted">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo:
-                                            2MB</small>
+                                        <label for="imagem_principal" class="form-label">Imagem Principal*</label>
+                                        <input class="form-control" type="file" id="imagem_principal"
+                                            name="imagem_principal" accept="image/*" required>
+                                        <small class="text-muted">Esta será a imagem exibida na página de vendas
+                                            principal</small>
+                                    </div>
+
+                                    <!-- Imagens Adicionais -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Imagens Adicionais para Detalhes (Opcional)</label>
+
+                                        <!-- Imagem 1 -->
+                                        <div class="input-group mb-2">
+                                            <input class="form-control" type="file" name="imagens_adicionais[]"
+                                                accept="image/*">
+                                            <span class="input-group-text bg-light">1</span>
+                                        </div>
+
+                                        <!-- Imagem 2 -->
+                                        <div class="input-group mb-2">
+                                            <input class="form-control" type="file" name="imagens_adicionais[]"
+                                                accept="image/*">
+                                            <span class="input-group-text bg-light">2</span>
+                                        </div>
+
+                                        <!-- Imagem 3 -->
+                                        <div class="input-group mb-2">
+                                            <input class="form-control" type="file" name="imagens_adicionais[]"
+                                                accept="image/*">
+                                            <span class="input-group-text bg-light">3</span>
+                                        </div>
+                                        <small class="text-muted d-block mt-1">
+                                            Estas imagens serão exibidas na tela de detalhes do produto (máximo imagens)
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -326,8 +338,7 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-
-
+                // Select2
                 $('#addProductModal').on('shown.bs.modal', function () {
                     $('.select2').select2({
                         placeholder: "Selecione uma opção",
@@ -337,14 +348,11 @@
                     });
                 });
 
-
+                // Máscara para preço
                 $('#preco').mask('000.000.000.000.000,00', { reverse: true });
-
-
-
-
             });
 
+            // Modal de exclusão
             document.getElementById('deleteProductModal').addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget;
                 var id = button.getAttribute('data-id');
