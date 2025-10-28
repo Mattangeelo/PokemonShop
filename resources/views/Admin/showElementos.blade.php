@@ -157,22 +157,21 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel"
+    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" id="deleteProductForm">
+                <form method="POST" id="deleteCategoryForm">
                     @csrf
-                    @method('DELETE')
                     <div class="modal-header bg-danger text-white">
-                        <h5 class="modal-title" id="deleteProductModalLabel">
-                            <i class="fas fa-trash-alt me-2"></i>Excluir Produto
+                        <h5 class="modal-title" id="deleteCategoryModalLabel">
+                            <i class="fas fa-trash-alt me-2"></i>Excluir Elemento
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Tem certeza que deseja excluir o produto "<strong id="deleteProductName"></strong>"?</p>
+                        <p>Tem certeza que deseja excluir o elemento "<strong id="deleteCategoryName"></strong>"?</p>
                         <p class="text-danger">Esta ação não poderá ser desfeita.</p>
                     </div>
                     <div class="modal-footer">
@@ -197,7 +196,7 @@
                 var editModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
                 editModal.show();
             @else
-                            var addModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
+                                                                            var addModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
                 addModal.show();
             @endif
         </script>
@@ -216,15 +215,15 @@
             document.getElementById('editCategoryName').value = nome;
         });
 
-       document.getElementById('deleteProductModal').addEventListener('show.bs.modal', function(event) {
+        document.getElementById('deleteCategoryModal').addEventListener('show.bs.modal', function (event) {
             var button = event.relatedTarget;
             var id = button.getAttribute('data-id');
             var nome = button.getAttribute('data-nome');
 
-            var form = document.getElementById('deleteProductForm');
+            var form = document.getElementById('deleteCategoryForm');
             form.action = `/excluirElemento/${id}`;
 
-            document.getElementById('deleteProductName').textContent = nome;
+            document.getElementById('deleteCategoryName').textContent = nome;
         });
     </script>
 @endpush
