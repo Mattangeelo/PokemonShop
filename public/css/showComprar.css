@@ -1,190 +1,376 @@
- :root {
-     --pokemon-red: #E3350D;
-     --pokemon-blue: #4DAD5B;
-     --pokemon-yellow: #FECA1B;
- }
+:root {
+    --pokemon-red: #E3350D;
+    --pokemon-blue: #4DAD5B;
+    --pokemon-yellow: #FECA1B;
+    --pokemon-dark-blue: #2A52BE;
+    --pokemon-light-bg: #f8f9fa;
+}
 
- body {
-     background-color: #f5f7fa;
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-     display: flex;
-     flex-direction: column;
-     min-height: 100vh;
- }
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #333;
+}
 
- .main-content {
-     flex: 1 0 auto;
- }
+.main-content {
+    flex: 1 0 auto;
+    padding-top: 2rem;
+}
 
- .navbar {
-     background-color: rgba(10, 10, 10, 0.15);
-     backdrop-filter: blur(10px);
-     -webkit-backdrop-filter: blur(10px);
-     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
- }
+/* Navbar Estilizada */
+.navbar {
+    background: linear-gradient(135deg, var(--pokemon-red) 0%, #c12a0a 100%);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
 
- .navbar-brand img {
-     height: 50px;
- }
+.navbar-brand img {
+    height: 50px;
+    transition: transform 0.3s ease;
+}
 
- .nav-link {
-     font-weight: 500;
-     color: white !important;
- }
+.navbar-brand img:hover {
+    transform: scale(1.05);
+}
 
- .nav-link:hover {
-     color: var(--primary-color) !important;
- }
+.nav-link {
+    font-weight: 500;
+    color: white !important;
+    transition: all 0.3s ease;
+    position: relative;
+}
 
- .bg-pokemon {
-     background-color: var(--pokemon-red);
- }
+.nav-link:hover {
+    color: var(--pokemon-yellow) !important;
+    transform: translateY(-2px);
+}
 
- .btn-pokemon {
-     background-color: var(--pokemon-red);
-     color: white;
-     border: none;
- }
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--pokemon-yellow);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
 
- .btn-pokemon:hover {
-     background-color: #c12a0a;
-     color: white;
- }
+.nav-link:hover::after {
+    width: 80%;
+}
 
- .product-image {
-     border-radius: 10px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
- }
+/* Cards e Containers */
+.product-details-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
 
- .badge-fire {
-     background-color: #EE8130;
-     color: white;
- }
+.product-details-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
 
- .badge-water {
-     background-color: #6390F0;
-     color: white;
- }
+/* Container de Imagens Principal */
+.image-main-container {
+    position: relative;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
 
- .badge-grass {
-     background-color: #7AC74C;
-     color: white;
- }
+.image-main-container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(135deg, var(--pokemon-red), var(--pokemon-yellow), var(--pokemon-blue));
+    border-radius: 23px;
+    z-index: -1;
+    animation: borderGlow 3s ease-in-out infinite alternate;
+}
 
- .badge-electric {
-     background-color: #F7D02C;
-     color: black;
- }
+@keyframes borderGlow {
+    0% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
- .badge-psychic {
-     background-color: #F95587;
-     color: white;
- }
+/* Imagem Principal */
+.product-main-image {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+    border-radius: 15px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    transition: all 0.4s ease;
+}
 
- .badge-ice {
-     background-color: #96D9D6;
-     color: black;
- }
+.product-main-image::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(45deg, var(--pokemon-red), var(--pokemon-yellow), var(--pokemon-blue));
+    border-radius: 19px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
 
- .badge-dragon {
-     background-color: #6F35FC;
-     color: white;
- }
+.product-main-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
 
- .badge-dark {
-     background-color: #705746;
-     color: white;
- }
+.product-main-image:hover::before {
+    opacity: 1;
+}
+/* Estilos para status de estoque */
+.text-warning {
+    color: #ffc107 !important;
+    font-weight: 600;
+}
 
- .badge-fairy {
-     background-color: #D685AD;
-     color: white;
- }
+.text-success {
+    color: #28a745 !important;
+    font-weight: 600;
+}
 
- .badge-normal {
-     background-color: #A8A77A;
-     color: white;
- }
+.text-danger {
+    color: #dc3545 !important;
+    font-weight: 600;
+}
 
- .badge-fighting {
-     background-color: #C22E28;
-     color: white;
- }
+/* Botão desabilitado */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
 
- .badge-flying {
-     background-color: #A98FF3;
-     color: white;
- }
+.btn:disabled:hover {
+    transform: none !important;
+    box-shadow: 0 4px 15px rgba(227, 53, 13, 0.3) !important;
+}
 
- .badge-poison {
-     background-color: #A33EA1;
-     color: white;
- }
+/* Badge de quantidade baixa */
+.low-stock-badge {
+    background: linear-gradient(135deg, #ffc107, #ff8c00);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+/* Thumbnails das Imagens */
+.image-thumbnails-container {
+    margin-top: 30px;
+}
 
- .badge-ground {
-     background-color: #E2BF65;
-     color: black;
- }
+.thumbnail-card {
+    background: white;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
 
- .badge-rock {
-     background-color: #B6A136;
-     color: white;
- }
+.thumbnail-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--pokemon-red), var(--pokemon-blue)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
 
- .badge-bug {
-     background-color: #A6B91A;
-     color: white;
- }
+.thumbnail-card:hover::before,
+.thumbnail-card.active::before {
+    opacity: 1;
+}
 
- .badge-ghost {
-     background-color: #735797;
-     color: white;
- }
+.thumbnail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
 
- .badge-steel {
-     background-color: #B7B7CE;
-     color: black;
- }
+.thumbnail-card.active {
+    border-color: var(--pokemon-red);
+    transform: scale(1.05);
+}
 
- .price-tag {
-     font-size: 1.8rem;
-     font-weight: bold;
-     color: #E3350D;
- }
+.thumbnail-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
 
- .discount {
-     text-decoration: line-through;
-     color: #6c757d;
-     font-size: 1.2rem;
- }
+.thumbnail-card:hover .thumbnail-image {
+    transform: scale(1.1);
+}
 
- .product-details-card {
-     border-radius: 15px;
-     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-     border: none;
- }
+/* Badge de Destaque na Imagem */
+.image-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, var(--pokemon-red), #c12a0a);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(227, 53, 13, 0.3);
+    animation: pulse 2s infinite;
+}
 
- .quantity-selector {
-     width: 100px;
- }
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 
- /* Estilos específicos para o footer */
- footer {
-     background-color: #212529;
-     color: white;
-     flex-shrink: 0;
-     margin-top: auto;
- }
+/* Efeito de Zoom na Imagem */
+.image-zoom-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
 
- footer a {
-     text-decoration: none;
-     transition: color 0.3s;
- }
+.zoom-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(227, 53, 13, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+}
 
- footer a:hover {
-     color: var(--pokemon-yellow) !important;
- }
+.image-zoom-container:hover .zoom-overlay {
+    opacity: 1;
+}
 
- footer .text-warning {
-     color: var(--pokemon-yellow) !important;
- }
+.zoom-icon {
+    background: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.image-zoom-container:hover .zoom-icon {
+    transform: scale(1);
+}
+
+/* Efeitos Específicos por Elemento */
+.element-fire .product-main-image {
+    border-color: #FF6B35;
+}
+
+.element-water .product-main-image {
+    border-color: #36D1DC;
+}
+
+.element-grass .product-main-image {
+    border-color: #56ab2f;
+}
+
+.element-electric .product-main-image {
+    border-color: #FFE000;
+}
+
+/* Loading para Imagens */
+.image-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Responsividade para Imagens */
+@media (max-width: 768px) {
+    .product-main-image {
+        height: 350px;
+    }
+    
+    .thumbnail-image {
+        height: 80px;
+    }
+    
+    .image-main-container {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-main-image {
+        height: 280px;
+    }
+    
+    .thumbnail-image {
+        height: 60px;
+    }
+}

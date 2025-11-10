@@ -253,7 +253,7 @@
                     @forelse($produtos as $produto)
                         <div class="product-card">
                             <div class="position-relative">
-                                <img src="{{ asset('storage/produtos/' . $produto->imagem) }}" class="product-image"
+                                <img src="{{ asset('storage/produtos/' . $produto->imagem_principal) }}" class="product-image"
                                     alt="{{ $produto->nome }}">
                                 @if($produto->desconto)
                                     <span

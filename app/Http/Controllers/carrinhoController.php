@@ -8,27 +8,30 @@ use Illuminate\Support\Facades\Crypt;
 class carrinhoController extends Controller
 {
     private $produtoModel;
+    private $categoriaModel;
+    private $elementoModel;
 
     public function __construct()
     {
         $this->produtoModel = new \App\Models\produtoModel();
+        $this->categoriaModel = new \App\Models\categoriaModel();
+        $this->elementoModel = new \App\Models\elementoModel();
     }
     public function index($idCriptografado)
     {
-        try {
-            $id = Crypt::decrypt($idCriptografado);
-
-            if (!$produto = $this->produtoModel->buscaProduto($id)) {
-                return redirect()->back()->with('error', 'Esse produto não foi encontrado!');
-            }
+        $id = Crypt::decrypt($idCriptografado);
+        $categorias = $this->categoriaModel->buscaTodasCategorias();
+        $elementos = $this->elementoModel->buscaTodosElementos();
 
 
-            $produto->load('categoria', 'elemento');
+        $produto = $this->produtoModel->with(['estoque', 'imagens'])->find($id);
 
-            return view('showCompra', compact('produto'));
-        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
-            return redirect()->back()->with('error', 'ID do produto inválido!');
+        if (!$produto) {
+            return redirect()->route('showProdutos')
+                ->with('error', 'Produto não encontrado');
         }
+
+        return view("showCompra", compact('elementos', 'categorias', 'produto'));
     }
     public function viewCarrinho()
     {
@@ -37,20 +40,25 @@ class carrinhoController extends Controller
 
         if (!empty($carrinho)) {
             $ids = array_keys($carrinho);
+            $produtosInfo = $this->produtoModel
+                ->with(['estoque', 'imagens'])
+                ->whereIn('id', $ids)
+                ->get();
 
-            
-            $produtosInfo = $this->produtoModel->buscaProdutosPorIds($ids);
-
-            
             foreach ($produtosInfo as $produto) {
                 $id = $produto->id;
                 if (isset($carrinho[$id])) {
+                    $quantidadeCarrinho = $carrinho[$id]['quantidade'];
+                    $estoqueDisponivel = $produto->estoque->quantidade ?? 0;
+
                     $produtosDetalhados[$id] = [
-                        'id'        => $id,
-                        'nome'      => $produto->nome,
-                        'imagem'    => $produto->imagem,
-                        'preco'     => $produto->preco,
-                        'quantidade' => $carrinho[$id]['quantidade'],
+                        'id' => $id,
+                        'nome' => $produto->nome,
+                        'imagem' => $produto->imagens->first()->caminho ?? $produto->imagem_principal,
+                        'preco' => $produto->preco,
+                        'quantidade' => $quantidadeCarrinho,
+                        'estoque' => $estoqueDisponivel,
+                        'subtotal' => $produto->preco * $quantidadeCarrinho
                     ];
                 }
             }
@@ -108,8 +116,9 @@ class carrinhoController extends Controller
 
         return redirect()->back()->with('success', 'Produto adicionado ao carrinho!');
     }
-    public function limparCarrinho(Request $request){
-       $request->session()->forget('carrinho');
-       return redirect()->route('/');
+    public function limparCarrinho(Request $request)
+    {
+        $request->session()->forget('carrinho');
+        return redirect()->route('/');
     }
 }

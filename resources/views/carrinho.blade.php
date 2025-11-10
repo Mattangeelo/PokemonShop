@@ -80,7 +80,7 @@
             <div class="col-12">
                 <h1 class="mb-4">Meu Carrinho</h1>
             </div>
-            
+
             @if(empty(session('carrinho')))
                 <!-- Carrinho vazio -->
                 <div class="col-12">
@@ -94,14 +94,14 @@
                     </div>
                 </div>
             @else
-                
+
                 <div class="col-lg-8">
                     @foreach($produtosDetalhados as $id => $item)
                         <div class="cart-item-card mb-4 p-3">
                             <div class="row align-items-center">
                                 <div class="col-md-2">
-                                    <img src="{{ asset('storage/produtos/' . $item['imagem']) }}" 
-                                        alt="{{ $item['nome'] }}" class="product-image img-fluid">
+                                    <img src="{{ asset('storage/' . $item['imagem']) }}" alt="{{ $item['nome'] ?? 'Produto' }}"
+                                        class="img-fluid rounded" style="max-height: 80px; object-fit: cover;">
                                 </div>
                                 <div class="col-md-5">
                                     <h5 class="mb-1">{{ $item['nome'] }}</h5>
@@ -111,7 +111,8 @@
                                     <form action="#" method="POST" class="d-flex">
                                         @csrf
                                         <input type="hidden" name="produto_id" value="{{ $id }}">
-                                        <select name="quantidade" class="form-select quantity-selector" onchange="this.form.submit()">
+                                        <select name="quantidade" class="form-select quantity-selector"
+                                            onchange="this.form.submit()">
                                             @for($i = 1; $i <= 10; $i++)
                                                 <option value="{{ $i }}" {{ $i == $item['quantidade'] ? 'selected' : '' }}>
                                                     {{ $i }}
@@ -135,7 +136,7 @@
                             </div>
                         </div>
                     @endforeach
-                    
+
                     <div class="d-flex justify-content-between mt-4">
                         <a href="{{ route('/') }}" class="btn btn-outline-pokemon">
                             <i class="fas fa-arrow-left me-2"></i> Continuar Comprando
@@ -148,21 +149,21 @@
                         </form>
                     </div>
                 </div>
-                
+
                 <!-- Resumo do pedido -->
                 <div class="col-lg-4">
                     <div class="summary-card p-4">
                         <h4 class="mb-4">Resumo do Pedido</h4>
-                        
+
                         @php
                             $subtotal = 0;
                             $frete = 15.00;
-                            foreach(session('carrinho') as $item) {
+                            foreach (session('carrinho') as $item) {
                                 $subtotal += $item['preco'] * $item['quantidade'];
                             }
                             $total = $subtotal + $frete;
                         @endphp
-                        
+
                         <div class="d-flex justify-content-between mb-2">
                             <span>Subtotal</span>
                             <span>R$ {{ number_format($subtotal, 2, ',', '.') }}</span>
@@ -176,16 +177,19 @@
                             <strong>Total</strong>
                             <strong class="price-tag">R$ {{ number_format($total, 2, ',', '.') }}</strong>
                         </div>
-                        
-                        <a href="#" class="btn btn-pokemon btn-lg w-100">
-                            <i class="fas fa-check me-2"></i> Finalizar Compra
-                        </a>
-                        
+
+                        <form action="{{ route('pagamento.checkout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success w-100 mt-3">
+                                <i class="fa fa-credit-card"></i> Pagar com Mercado Pago
+                            </button>
+                        </form>
+
                         <p class="text-center small mt-3 text-muted">
                             <i class="fas fa-lock me-1"></i> Sua compra está segura e criptografada
                         </p>
                     </div>
-                    
+
                     <div class="mt-4 p-3" style="background-color: #f8f9fa; border-radius: 10px;">
                         <h6 class="mb-3">Vantagens de comprar conosco</h6>
                         <div class="d-flex align-items-center mb-2">
