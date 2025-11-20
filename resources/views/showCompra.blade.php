@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -8,11 +9,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/showComprar.css') }}">
+    <link rel="stylesheet" href="{{asset('css/comprar.css')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('imagens/pikachuIcone.png') }}">
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -80,6 +78,45 @@
         </div>
     </nav>
 
+    <!-- Modal de Perfil (mantido igual) -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-pokemon">
+                    <h5 class="modal-title text-white" id="profileModalLabel">Meu Perfil</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if (session('user'))
+                        <div class="text-center mb-4">
+                            <div class="profile-avatar mb-3">
+                                <i class="fas fa-user-circle fa-5x text-secondary"></i>
+                            </div>
+                            <h4>{{ session('user.nome') ?? 'Usuário' }}</h4>
+                            <p class="text-muted">{{ session('user.email') }}</p>
+                        </div>
+
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-history me-2"></i> Meus Pedidos
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-heart me-2"></i> Favoritos
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-cog me-2"></i> Configurações
+                            </a>
+                        </div>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Conteúdo Principal -->
     <div class="container my-5 main-content">
         <div class="row">
@@ -90,26 +127,10 @@
                         @if($produto->imagem_principal)
                             <div class="text-center">
                                 <img src="{{ asset('storage/produtos/' . $produto->imagem_principal) }}"
-                                    alt="Imagem principal" class="img-fluid product-image"
-                                    style="max-height: 400px; object-fit: contain;">
+                                    alt="Imagem principal" class="img-fluid product-image" id="imagemPrincipal">
                             </div>
                         @endif
                     </div>
-
-                    <!-- Imagens Adicionais -->
-                    @if(isset($produto->imagens) && $produto->imagens->count() > 0)
-                        <div class="row mt-3">
-                            <h5 class="mb-3">Mais Imagens</h5>
-                            @foreach($produto->imagens as $imagem)
-                                <div class="col-4 mb-3">
-                                    <div class="card image-card">
-                                        <img src="{{ asset('storage/' . $imagem->caminho_imagem) }}" class="card-img-top"
-                                            alt="Imagem adicional" style="height: 120px; object-fit: cover;">
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
                 </div>
 
                 <!-- Detalhes do Produto -->
@@ -175,13 +196,22 @@
 
                             <div class="me-2" style="min-width: 120px;">
                                 <label for="quantity" class="form-label mb-1"><strong>Quantidade:</strong></label>
-                                <input type="number" name="quantidade" id="quantity" class="form-control" min="1"
-                                    max="{{ $produto->estoque ? min(5, $produto->estoque->quantidade) : 0 }}" value="1"
-                                    {{ !$produto->estoque || $produto->estoque->quantidade == 0 ? 'disabled' : '' }}>
+                                <select name="quantidade" class="form-select" id="quantity">
+                                    @if($produto->estoque && $produto->estoque->quantidade > 0)
+                                        @php
+                                            $maxQuantity = min(5, $produto->estoque->quantidade);
+                                        @endphp
+                                        @for($i = 1; $i <= $maxQuantity; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
+                                    @else
+                                        <option value="0" disabled>Indisponível</option>
+                                    @endif
+                                </select>
                             </div>
 
                             <div class="d-flex flex-column justify-content-end">
-                                <button type="button" class="btn btn-pokemon btn-lg" data-bs-toggle="modal"
+                                <button type="button" id="botaoComprar" class="btn btn-lg" data-bs-toggle="modal"
                                     data-bs-target="#confirmacaoModal" @if(!$produto->estoque || $produto->estoque->quantidade <= 0) disabled @endif>
                                     <i class="fas fa-shopping-cart me-2"></i>
                                     @if($produto->estoque && $produto->estoque->quantidade > 0)
@@ -194,6 +224,18 @@
                         </form>
                     </div>
                 </div>
+
+                <!-- Imagens Adicionais -->
+                    @if(isset($produto->imagens) && $produto->imagens->count() > 0)
+                        <div class="row">
+                            <h5 class="imagens" id="h5-imagensAdicionais">Mais Imagens</h5>
+                            @foreach($produto->imagens as $imagem)
+                                <div class="d-flex justify-content-center flex-wrap gap-3 col-4">
+                                    <img src="{{ asset('storage/' . $imagem->caminho_imagem) }}" class="card-img-top" alt="Imagem adicional" id="imagemAdicional">
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
 
 
                 <div class="row mt-5">
