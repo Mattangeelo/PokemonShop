@@ -175,18 +175,9 @@
 
                             <div class="me-2" style="min-width: 120px;">
                                 <label for="quantity" class="form-label mb-1"><strong>Quantidade:</strong></label>
-                                <select name="quantidade" class="form-select" id="quantity">
-                                    @if($produto->estoque && $produto->estoque->quantidade > 0)
-                                        @php
-                                            $maxQuantity = min(5, $produto->estoque->quantidade);
-                                        @endphp
-                                        @for($i = 1; $i <= $maxQuantity; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                        @endfor
-                                    @else
-                                        <option value="0" disabled>Indisponível</option>
-                                    @endif
-                                </select>
+                                <input type="number" name="quantidade" id="quantity" class="form-control" min="1"
+                                    max="{{ $produto->estoque ? min(5, $produto->estoque->quantidade) : 0 }}" value="1"
+                                    {{ !$produto->estoque || $produto->estoque->quantidade == 0 ? 'disabled' : '' }}>
                             </div>
 
                             <div class="d-flex flex-column justify-content-end">

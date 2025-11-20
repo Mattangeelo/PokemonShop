@@ -162,6 +162,9 @@
                                 $subtotal += $item['preco'] * $item['quantidade'];
                             }
                             $total = $subtotal + $frete;
+
+                            // Salva o total na sessão para uso posterior
+                            session(['valorTotal' => $total]);
                         @endphp
 
                         <div class="d-flex justify-content-between mb-2">
@@ -178,32 +181,28 @@
                             <strong class="price-tag">R$ {{ number_format($total, 2, ',', '.') }}</strong>
                         </div>
 
-                        <form action="{{ route('pagamento.checkout') }}" method="POST">
+                        <!-- Mercado Pago -->
+                        <form action="{{ route('preparaPagamentoPix') }}" method="POST" class="mb-2">
                             @csrf
-                            <button type="submit" class="btn btn-success w-100 mt-3">
-                                <i class="fa fa-credit-card"></i> Pagar com Mercado Pago
+                            <a href="link.mercadopago.com.br/laravelpokemonshop">
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="fa fa-credit-card"></i> Pagar com Mercado Pago
+                                </button>
+                            </a>
+
+                        </form>
+
+                        <!-- PIX -->
+                        <form action="{{ route('preparaPagamentoPix') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-qrcode"></i> Pagar com PIX
                             </button>
                         </form>
 
                         <p class="text-center small mt-3 text-muted">
                             <i class="fas fa-lock me-1"></i> Sua compra está segura e criptografada
                         </p>
-                    </div>
-
-                    <div class="mt-4 p-3" style="background-color: #f8f9fa; border-radius: 10px;">
-                        <h6 class="mb-3">Vantagens de comprar conosco</h6>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-shipping-fast text-success me-2"></i>
-                            <span class="small">Entrega rápida para todo Brasil</span>
-                        </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-shield-alt text-primary me-2"></i>
-                            <span class="small">Compra 100% segura</span>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-exchange-alt text-warning me-2"></i>
-                            <span class="small">Troca grátis em 30 dias</span>
-                        </div>
                     </div>
                 </div>
             @endif

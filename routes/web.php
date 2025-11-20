@@ -71,28 +71,31 @@ Route::middleware([CheckIsLogged::class])->group(function () {
         Route::post('/editarElemento/{id}', [elementoController::class, 'editar'])->name('editarElemento');
         Route::post('/excluirElemento/{id}', [elementoController::class, 'excluir'])->name('excluirElemento');
 
-        /**
-         * Compra Rotas
-         */
-        Route::post('/checkout', [PagamentoController::class, 'checkout'])->name('pagamento.checkout');
-        Route::get('/pagamento/sucesso', [PagamentoController::class, 'sucesso'])->name('pagamento.sucesso');
-        Route::get('/pagamento/falha', [PagamentoController::class, 'falha'])->name('pagamento.falha');
+        
     });
     /**
      * Rotas Usuarios 
      */
 
     Route::middleware([CheckIsUser::class])->group(function () {
-        Route::get('/showComprar/{id}', [carrinhoController::class, 'index'])->name('showComprar');
+       Route::get('/showComprar/{id}', [carrinhoController::class, 'index'])->name('showComprar');
         Route::post('/adicionarCarrinho', [carrinhoController::class, 'adicionar'])->name('adicionarCarrinho');
         Route::get('/carrinho', [carrinhoController::class, 'viewCarrinho'])->name('carrinho');
         Route::post('/limparCarrinho', [carrinhoController::class, 'limparCarrinho'])->name('limparCarrinho');
+        Route::post('/preparaPagamentoPix',[carrinhoController::class, 'preparaPix'])->name('preparaPagamentoPix');
+        
+        // Rotas PIX
+        Route::get('/pixPagamento',[PagamentoController::class,'index'])->name('pixPagamento');
+        
+        // Rotas Mercado Pago
+        
     });
 
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 });
 
 
+
 Route::get('/', [homeController::class, 'index'])->name('/');
-Route::get('/fitlro', [homeController::class, 'filtro'])->name('filtro');
+Route::get('/filtro', [homeController::class, 'filtro'])->name('filtro');
 Route::get('/contato', [homeController::class, 'contato'])->name('contato');

@@ -46,4 +46,8 @@ class produtoModel extends Model
     {
         return $this->hasMany('App\Models\produtoImagemModel', 'id_produto', 'id');
     }
+    public function pedidoItens()
+    {
+        return $this->hasMany(PedidoItem::class, 'id_produto');
+    }
 }
