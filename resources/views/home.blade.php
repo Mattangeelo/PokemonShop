@@ -8,8 +8,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('imagens/pikachuIcone.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 
 </head>
 
@@ -197,7 +198,7 @@
 
                     <!-- Filtro por Elemento/Tipo -->
                     <div class="mb-4">
-                        <h6 class="fw-bold">Elemento Pokémon</h6>
+                        <h6 class="fw-bold">Elemento Pokemon</h6>
                         <div class="pokemon-element">
                             @foreach($elementos as $elemento)
                             <button type="button" class="{{ strtolower($elemento->nome) }} mb-1 element-filter"
@@ -378,7 +379,7 @@
     </div>
 
     <!-- Rodapé -->
-    <footer class="py-4">
+    <!--<footer class="py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4 mb-md-0">
@@ -412,8 +413,7 @@
                     marcas registradas da Nintendo.</p>
             </div>
         </div>
-    </footer>
-
+    </footer>-->
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -486,6 +486,7 @@ document.querySelectorAll('.category-filter').forEach(checkbox => {
     });
 });
     </script>
+    @include('footer')
 </body>
 
 </html>

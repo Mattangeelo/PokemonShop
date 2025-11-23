@@ -1,0 +1,174 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #faf6cb;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .nav-item .nav-link {
+    color: #000000 !important;
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    justify-content: right;
+}
+
+.navbar .nav-item .btn {
+    background-color: #FFCC33 !important;
+    margin: 10px;
+    margin-right: 15px;
+}
+
+.navbar .nav-item .btn:hover {
+    background-color: #e6b800 !important;
+    transition: 0.5s;
+}
+
+.navbar .nav-item .nav-link .fa-arrow-right {
+    color: #000000;
+    font-size: 30px;
+    margin: 5px;
+}
+
+.card-title {
+    color: #fe5f2f;
+    font-weight: bold;
+}
+
+.btn-pokemon {
+    background-color: #ffcc33;
+    border: none;
+    color: #404040;
+    font-weight: bold;
+}
+
+.btn-pokemon:hover {
+    background-color: #fe5f2f;
+    color: white;
+}
+
+.btn-details {
+    background-color: #fe5f2f;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-details:hover {
+    background-color: #ffcc33;
+    color: #404040;
+}
+.alert {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.btn-close {
+    filter: brightness(0) invert(1);
+}
+
+
+.login-container {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(80px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 40px 0px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background-color: #faf6cb;
+    border: 2px solid rgba(145, 112, 3, 0.2);
+    border-radius: 40px;
+    outline: none;
+    font-size: 16px;
+    color: #000000;
+    padding: 20px 45px 20px 20px;
+    
+}
+
+.input-box .fa-lock {
+    color: #FFCC33;
+}
+
+.input-box .fa-user {
+    color: #FFCC33;
+}
+
+.input-box input::placeholder {
+    color: #a5a5a5;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.btn-login {
+    width: 100%;
+    height: 50px;
+    background-color: #FFCC33;
+    border: none;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.btn-login:hover {
+    background-color: #e6b800;
+    color: black;
+    transition: 0.3s;
+}
+
+
+.logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    height: 50px;
+}
+
+.login-footer {
+    font-size: 16px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.login-footer a {
+    text-decoration: none;
+    color: #FFCC33;
+    font-weight: 700;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+    color: #e6b800;
+}

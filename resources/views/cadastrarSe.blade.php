@@ -6,37 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/cadastrarSe.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/cadastreSe.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('imagens/pikachuIcone.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('/') }}">
-                <img src="{{ asset('imagens/logo.png') }}" alt="Logo Pokémon">
-            </a>
-            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('/') }}">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Contato</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('login') }}">Entre</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <button class="btn"><a class="nav-link" href="{{ asset('/') }}">Início <i class="fa fa-arrow-right"></i></a></button>
+            </li>
+        </ul>
     </nav>
     <div class="container">
         <div class="row justify-content-center">
@@ -193,7 +174,7 @@
                             </div>
 
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-lg">Cadastrar</button>
+                                <button type="submit" class="btn btn-cadastro">Cadastrar</button>
                             </div>
                         </form>
                     </div>
@@ -271,10 +252,6 @@
                 });
         }
     </script>
-
-    <footer>
-        <p>&copy; 2025 Pokémon Action Figures. Todos os direitos reservados.</p>
-    </footer>
 </body>
 
 </html>

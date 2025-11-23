@@ -1,0 +1,130 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #faf6cb;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container h2 {
+    color:#FFCC33;
+    font-weight: bold;
+}
+
+/* Navbar */
+.navbar .nav-item .nav-link {
+    color: #000000 !important;
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    justify-content: right;
+}
+
+.navbar .nav-item .btn {
+    background-color: #FFCC33 !important;
+    margin: 10px;
+    margin-right: 15px;
+}
+
+.navbar .nav-item .btn:hover {
+    background-color: #e6b800 !important;
+    transition: 0.5s;
+}
+
+.navbar .nav-item .nav-link .fa-arrow-right {
+    color: #000000;
+    font-size: 30px;
+    margin: 5px;
+}
+
+/* Card de Registro */
+.register-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.register-card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 100%;
+    margin: 20px;
+}
+
+.logo {
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: #FFCC33;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    color: #FFCC33;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.divider {
+    border-color: #ffcc33;
+    opacity: 0.5;
+    margin: 10px 0;
+}
+
+/* Formulário */
+.form-control, .form-select {
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #fe5f2f;
+    box-shadow: 0 0 0 0.25rem rgba(254, 95, 47, 0.25);
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.85rem;
+}
+
+/* Botões */
+.btn-cadastro {
+    width: 100%;
+    height: 50px;
+    background-color: #FFCC33;
+    border: none;
+    border-radius: 40px;
+    font-size: 25px;
+    color: #000000;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.btn-cadastro:hover {
+    background-color: #e6b800;
+    color: black;
+    transition: 0.3s;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .register-card {
+        padding: 30px 20px;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+}

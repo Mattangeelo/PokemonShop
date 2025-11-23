@@ -6,6 +6,7 @@ use App\Models\enderecoModel;
 use App\Models\PedidoHistorico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 
 class carrinhoController extends Controller
@@ -151,12 +152,20 @@ class carrinhoController extends Controller
             $nome = $item['nome'];
             $qtd = $item['quantidade'];
 
+
             if (!$produto = $this->produtoModel->buscaProduto($id)) {
                 return redirect()->back()->with('error', 'O produto não foi encontrado, por favor tente novamente!');
             }
 
-            if (!$this->estoqueModel->validaEstoque($qtd, $id)) {
-                return redirect()->back()->with('error', "O produto {$nome} não possui estoque suficiente.");
+            $estoque = DB::select("SELECT verificar_estoque(?) AS qtd", [$id])[0]->qtd;
+
+            if ($estoque <= 0) {
+                return redirect()->back()->with('error', "O produto {$nome} está esgotado.");
+            }
+
+            // Se cliente pediu mais que o estoque → vende o máximo disponível
+            if ($qtd > $estoque) {
+                $qtd = $estoque;
             }
 
             // Soma valor total com preço REAL do banco

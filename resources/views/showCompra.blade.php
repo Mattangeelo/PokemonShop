@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -9,11 +8,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{asset('css/comprar.css')}}">
+    <link rel="stylesheet" href="{{asset('css/showComprar.css')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('imagens/pikachuIcone.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
@@ -46,39 +46,39 @@
                         </a>
                     </li>
                     @if (session('user'))
-                        <!-- Dropdown do perfil quando logado -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown">
-                                <i class="fas fa-user-circle me-1"></i>
-                                {{ session('user.nome') ?? session('user.email') }}
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
-                                        <i class="fas fa-user me-2"></i>Meu Perfil
-                                    </a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">
-                                        <i class="fas fa-sign-out-alt me-2"></i>Sair
-                                    </a></li>
-                            </ul>
-                        </li>
+                    <!-- Dropdown do perfil quando logado -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i>
+                            {{ session('user.nome') ?? session('user.email') }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
+                                    <i class="fas fa-user me-2"></i>Meu Perfil
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('logout') }}">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Sair
+                                </a></li>
+                        </ul>
+                    </li>
                     @else
-                        <!-- Link de login quando não logado -->
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('login') }}">
-                                <i class="fas fa-sign-in-alt me-1"></i>Entrar
-                            </a>
-                        </li>
+                    <!-- Link de login quando não logado -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('login') }}">
+                            <i class="fas fa-sign-in-alt me-1"></i>Entrar
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Modal de Perfil (mantido igual) -->
+    <!-- Modal de Perfil -->
     <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -89,25 +89,25 @@
                 </div>
                 <div class="modal-body">
                     @if (session('user'))
-                        <div class="text-center mb-4">
-                            <div class="profile-avatar mb-3">
-                                <i class="fas fa-user-circle fa-5x text-secondary"></i>
-                            </div>
-                            <h4>{{ session('user.nome') ?? 'Usuário' }}</h4>
-                            <p class="text-muted">{{ session('user.email') }}</p>
+                    <div class="text-center mb-4">
+                        <div class="profile-avatar mb-3">
+                            <i class="fas fa-user-circle fa-5x text-secondary"></i>
                         </div>
+                        <h4>{{ session('user.nome') ?? 'Usuário' }}</h4>
+                        <p class="text-muted">{{ session('user.email') }}</p>
+                    </div>
 
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <i class="fas fa-history me-2"></i> Meus Pedidos
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <i class="fas fa-heart me-2"></i> Favoritos
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <i class="fas fa-cog me-2"></i> Configurações
-                            </a>
-                        </div>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fas fa-history me-2"></i> Meus Pedidos
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fas fa-heart me-2"></i> Favoritos
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fas fa-cog me-2"></i> Configurações
+                        </a>
+                    </div>
                     @endif
                 </div>
                 <div class="modal-footer">
@@ -117,18 +117,18 @@
         </div>
     </div>
 
-    <!-- Conteúdo Principal -->
-    <div class="container my-5 main-content">
+    <!-- Conteúdo Principal - MANTENDO AS CLASSES ORIGINAIS -->
+    <div class="container my-5 main-content" id="conteudoPrincipal">
         <div class="row">
             <!-- Imagem Principal -->
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-4">
                         @if($produto->imagem_principal)
-                            <div class="text-center">
-                                <img src="{{ asset('storage/produtos/' . $produto->imagem_principal) }}"
-                                    alt="Imagem principal" class="img-fluid product-image" id="imagemPrincipal">
-                            </div>
+                        <div class="text-center">
+                            <img src="{{ asset('storage/produtos/' . $produto->imagem_principal) }}"
+                                alt="Imagem principal" class="img-fluid product-image card-img-top" id="imagemPrincipal">
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -140,13 +140,11 @@
                         <div class="mb-3">
                             <span
                                 class="badge badge-{{ strtolower($produto->elemento->nome) }} me-2">{{ $produto->elemento->nome }}</span>
-
                         </div>
 
                         <div class="mb-3">
                             <div class="d-flex align-items-center">
                                 <span class="price-tag me-3">R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
-
                             </div>
                         </div>
 
@@ -164,33 +162,31 @@
                                     <li><strong>Numeração:</strong> {{ $produto->numeracao }}</li>
                                     <li><strong>Categoria:</strong> {{ $produto->categoria->nome }}</li>
                                     <li><strong>Elemento:</strong> {{ $produto->elemento->nome }}</li>
-                                    <!-- Adicione mais detalhes específicos se necessário -->
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <h5 class="mb-2">Disponibilidade</h5>
                                 @if($produto->estoque && $produto->estoque->quantidade > 0)
-                                    @if($produto->estoque->quantidade <= $produto->estoque->quantidade_minima)
-                                        <p class="text-warning"><i class="fas fa-exclamation-triangle me-1"></i> Últimas
-                                            unidades!</p>
-                                        <p class="text-muted small">Apenas {{ $produto->estoque->quantidade }} unidade(s)
-                                            restante(s)</p>
+                                @if($produto->estoque->quantidade <= $produto->estoque->quantidade_minima)
+                                    <p class="text-warning"><i class="fas fa-exclamation-triangle me-1"></i> Últimas
+                                        unidades!</p>
+                                    <p class="text-muted small">Apenas {{ $produto->estoque->quantidade }} unidade(s)
+                                        restante(s)</p>
                                     @else
-                                        <p class="text-success"><i class="fas fa-check-circle me-1"></i> Em estoque</p>
-                                        <p class="text-muted small">{{ $produto->estoque->quantidade }} unidade(s)
-                                            disponível(is)</p>
+                                    <p class="text-success"><i class="fas fa-check-circle me-1"></i> Em estoque</p>
+                                    <p class="text-muted small">{{ $produto->estoque->quantidade }} unidade(s)
+                                        disponível(is)</p>
                                     @endif
-                                @else
+                                    @else
                                     <p class="text-danger"><i class="fas fa-times-circle me-1"></i> Esgotado</p>
                                     <p class="text-muted small">Produto indisponível no momento</p>
-                                @endif
-                                <p class="text-muted small mt-2"><i class="fas fa-shipping-fast me-1"></i> Entrega em
-                                    3-5 dias úteis</p>
+                                    @endif
+                                    <p class="text-muted small mt-2"><i class="fas fa-shipping-fast me-1"></i> Entrega em
+                                        3-5 dias úteis</p>
                             </div>
                         </div>
 
-                        <form id="comprarForm" action="{{ route('adicionarCarrinho') }}" method="POST"
-                            class="d-flex align-items-center gap-2">
+                        <form id="comprarForm" action="{{ route('adicionarCarrinho') }}" method="POST" class="d-flex align-items-center justify-content-center">
                             @csrf
                             <input type="hidden" name="produto_id" value="{{ $produto->id }}">
 
@@ -198,27 +194,27 @@
                                 <label for="quantity" class="form-label mb-1"><strong>Quantidade:</strong></label>
                                 <select name="quantidade" class="form-select" id="quantity">
                                     @if($produto->estoque && $produto->estoque->quantidade > 0)
-                                        @php
-                                            $maxQuantity = min(5, $produto->estoque->quantidade);
-                                        @endphp
-                                        @for($i = 1; $i <= $maxQuantity; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
+                                    @php
+                                    $maxQuantity = min(5, $produto->estoque->quantidade);
+                                    @endphp
+                                    @for($i = 1; $i <= $maxQuantity; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
-                                    @else
+                                        @else
                                         <option value="0" disabled>Indisponível</option>
-                                    @endif
+                                        @endif
                                 </select>
                             </div>
 
-                            <div class="d-flex flex-column justify-content-end">
+                            <div class="d-flex flex-column justify-content-center">
                                 <button type="button" id="botaoComprar" class="btn btn-lg" data-bs-toggle="modal"
                                     data-bs-target="#confirmacaoModal" @if(!$produto->estoque || $produto->estoque->quantidade <= 0) disabled @endif>
-                                    <i class="fas fa-shopping-cart me-2"></i>
-                                    @if($produto->estoque && $produto->estoque->quantidade > 0)
+                                        <i class="fas fa-shopping-cart me-2"></i>
+                                        @if($produto->estoque && $produto->estoque->quantidade > 0)
                                         Comprar Agora
-                                    @else
+                                        @else
                                         Esgotado
-                                    @endif
+                                        @endif
                                 </button>
                             </div>
                         </form>
@@ -226,19 +222,18 @@
                 </div>
 
                 <!-- Imagens Adicionais -->
-                    @if(isset($produto->imagens) && $produto->imagens->count() > 0)
-                        <div class="row">
-                            <h5 class="imagens" id="h5-imagensAdicionais">Mais Imagens</h5>
-                            @foreach($produto->imagens as $imagem)
-                                <div class="d-flex justify-content-center flex-wrap gap-3 col-4">
-                                    <img src="{{ asset('storage/' . $imagem->caminho_imagem) }}" class="card-img-top" alt="Imagem adicional" id="imagemAdicional">
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
+                @if(isset($produto->imagens) && $produto->imagens->count() > 0)
+                <div class="row" id="divImagemAdicional">
+                    <h5 class="imagens" id="h5-imagensAdicionais">Mais Imagens</h5>
+                    @foreach($produto->imagens as $imagem)
+                    <div class="d-flex justify-content-center flex-wrap col" id="ImagemAdicional">
+                        <img src="{{ asset('storage/' . $imagem->caminho_imagem) }}" class="card-img-top" alt="Imagem adicional" id="imagemAdicional">
+                    </div>
+                    @endforeach
+                </div>
+                @endif
 
-
-                <div class="row mt-5">
+                <div class="row mt-5" id="descricaoProduto">
                     <div class="col-12">
                         <div class="product-details-card p-4">
                             <ul class="nav nav-tabs" id="productTabs" role="tablist">
@@ -299,6 +294,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Modal de Confirmação -->
         <div class="modal fade modal-pokemon" id="confirmacaoModal" tabindex="-1"
             aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
@@ -324,69 +320,30 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Rodapé -->
-        <footer class="py-4 mt-auto">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4 mb-4 mb-md-0">
-                        <h5 class="text-warning">Pokémon Collection</h5>
-                        <p class="small">A maior loja de action figures e pelúcias Pokémon do Brasil.</p>
-                    </div>
-                    <div class="col-md-4 mb-4 mb-md-0">
-                        <h5 class="text-warning">Links Úteis</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-white">Sobre nós</a></li>
-                            <li><a href="#" class="text-white">Política de entrega</a></li>
-                            <li><a href="#" class="text-white">Trocas e devoluções</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h5 class="text-warning">Contato</h5>
-                        <ul class="list-unstyled">
-                            <li><i class="fas fa-envelope me-2"></i> contato@pokemoncollection.com</li>
-                            <li><i class="fas fa-phone me-2"></i> (11) 1234-5678</li>
-                            <li class="mt-2">
-                                <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <hr class="my-4 bg-light">
-                <div class="text-center small">
-                    <p>&copy; 2025 Pokémon Collection. Todos os direitos reservados. Pokémon e seus respectivos nomes
-                        são
-                        marcas registradas da Nintendo.</p>
-                </div>
-            </div>
-        </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const continuarBtn = document.getElementById('continuarBtn');
+            const finalizarCompraBtn = document.getElementById('finalizarCompraBtn');
+            const comprarForm = document.getElementById('comprarForm');
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const continuarBtn = document.getElementById('continuarBtn');
-                const finalizarCompraBtn = document.getElementById('finalizarCompraBtn');
-                const comprarForm = document.getElementById('comprarForm');
-
-
-                continuarBtn.addEventListener('click', function () {
-                    window.location.href = "{{ url('/') }}";
-
-                });
-
-
-                finalizarCompraBtn.addEventListener('click', function () {
-                    comprarForm.submit();
-
-                    setTimeout(function () {
-                        window.location.href = "{{ route('carrinho') }}";
-                    }, 500);
-                });
+            continuarBtn.addEventListener('click', function() {
+                window.location.href = "{{ url('/') }}";
             });
-        </script>
-</body>
 
+            finalizarCompraBtn.addEventListener('click', function() {
+                comprarForm.submit();
+                setTimeout(function() {
+                    window.location.href = "{{ route('carrinho') }}";
+                }, 500);
+            });
+        });
+    </script>
+
+    <!-- FOOTER -->
+    @include('footer')
+</body>
 </html>

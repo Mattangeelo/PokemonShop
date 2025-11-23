@@ -1,0 +1,58 @@
+/* Rodapé */
+.footer-full {
+    background-color: whitesmoke;
+    box-shadow: 0 0 10px #CCC;
+    padding: 5px 0;
+    position: static;
+    z-index: 1030;
+    text-align: center;
+    font-family: 'Roboto';
+    width: auto !important;
+    margin-top: auto;
+    
+}
+
+.footer-full {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+/* Ícones */
+.footer-full .icones {
+    text-align: center;
+    margin: 20px;
+}
+
+.footer-full .icones a {    
+    display: inline-flex;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+    background-color: rgb(218, 218, 218);
+    color: white;
+    margin: 0 6px;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    transition: 1s all;
+}
+
+.footer-full .icones a .fa-envelope {
+    padding-right: 1px;
+}
+
+.footer-full .icones a:hover .fa-envelope {
+    color: rgb(4, 189, 221)!important;
+    transition: 0.5s;
+}
+
+.footer-full .icones a:hover .fa-whatsapp {
+    color: rgb(14, 255, 14)!important;
+    transition: 0.5s;
+}
+
+.footer-full .icones a:hover .fa-instagram {
+    color: rgb(255, 41, 77)!important;
+    transition: 0.5s;
+}
